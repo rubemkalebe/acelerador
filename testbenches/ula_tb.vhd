@@ -1,5 +1,5 @@
 -- Testbench for the ULA component.
--- Version: 03.08.2016.
+-- Version: 03.14.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -7,7 +7,7 @@ use ieee.std_logic_1164.all;
 entity ula_tb is
   generic (
     n         : natural := 32;
-    opc_bits  : natural := 3
+    opc_bits  : natural := 4
   );
 end ula_tb;
 
@@ -28,6 +28,11 @@ begin
 
   process
   begin
+
+    s_a <= "00000000000000000000000000000000";
+		s_b <= "00000000000000000000000000000000";
+    s_opcode <= "0000";
+		wait for 1 ns;
 
     wait;
   end process;
