@@ -1,7 +1,7 @@
 -- A 32-bit multiplier. Uses features from the standard library.
 -- The result goes to two 32-bit registers: a high (catches the first 32 bits)
 -- and a low (catches the last 32 bits).
--- Version: 03.14.2016.
+-- Version: 03.21.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
