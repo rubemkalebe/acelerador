@@ -1,13 +1,16 @@
 v 3
+file . "testbenches/alu_tb.vhd" "20160322033046.000" "20160322003219.712":
+  entity alu_tb at 4( 61) + 0 on 35;
+  architecture alu_tb of alu_tb at 14( 212) + 0 on 36;
 file . "mult.vhd" "20160322015721.000" "20160321225734.564":
   entity mult at 1( 0) + 0 on 21;
   architecture mult of mult at 13( 218) + 0 on 22;
-file . "src/ula.vhd" "20160314200120.000" "20160314170431.173":
-  entity ula at 4( 49) + 0 on 15;
-  architecture ula of ula at 22( 436) + 0 on 16;
-file . "testbenches/ula_tb.vhd" "20160314191659.000" "20160314170440.756":
-  entity ula_tb at 4( 61) + 0 on 4;
-  architecture ula_tb of ula_tb at 14( 212) + 0 on 4;
+file . "src/ula.vhd" "20160322031844.000" "20160322002542.011":
+  entity ula at 4( 49) + 0 on 29;
+  architecture ula of ula at 22( 438) + 0 on 30;
+file . "testbenches/ula_tb.vhd" "20160322032515.000" "20160322002542.155":
+  entity ula_tb at 4( 61) + 0 on 31;
+  architecture ula_tb of ula_tb at 14( 212) + 0 on 32;
 file . "src/multiplier.vhd" "20160322020642.000" "20160321233158.058":
   entity multiplier at 6( 210) + 0 on 25;
   architecture multiplier of multiplier at 24( 587) + 0 on 26;
@@ -17,3 +20,6 @@ file . "testbenches/multiplier_tb.vhd" "20160322022807.000" "20160321233158.137"
 file . "mult_tb.vhd" "20160322015723.000" "20160321225734.612":
   entity mult_tb at 1( 0) + 0 on 23;
   architecture mult_tb of mult_tb at 8( 102) + 0 on 24;
+file . "src/alu.vhd" "20160322033050.000" "20160322003219.594":
+  entity alu at 4( 49) + 0 on 33;
+  architecture alu of alu at 22( 438) + 0 on 34;
