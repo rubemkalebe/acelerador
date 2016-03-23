@@ -1,6 +1,8 @@
+-- Testbench for a register component.
+-- Version: 03.23.2016.
+
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity reg_tb is
   generic (

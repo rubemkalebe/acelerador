@@ -1,6 +1,8 @@
+-- A 32-bit register.
+-- Version: 03.23.2016.
+
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity reg is
   generic (
@@ -17,19 +19,22 @@ entity reg is
 end reg;
 
 architecture reg of reg is
+
+  signal aux : std_logic_vector(n-1 downto 0);
+
 begin
 
   writing : process(clk, enable_write)
   begin
     if(clk'event and clk = '1' and enable_write = '1') then
-      reg_output <= reg_input;
+      aux <= reg_input;
     end if;
   end process writing;
 
-  reading : PROCESS(clk,enable_read)
+  reading : process(clk,enable_read)
   begin
     if(clk'event and clk = '1' and enable_read = '1') then
-      reg_output <= reg_input;
+      reg_output <= aux;
     end if;
   end process reading;
 

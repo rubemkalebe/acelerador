@@ -1,5 +1,5 @@
 v 3
-file . "testbenches/reg_tb.vhd" "20160323020039.000" "20160322230057.132":
+file . "testbenches/reg_tb.vhd" "20160323020039.000" "20160323104041.866":
   entity reg_tb at 1( 0) + 0 on 39;
   architecture reg_tb of reg_tb at 11( 139) + 0 on 40;
 file . "testbenches/alu_tb.vhd" "20160322033046.000" "20160322003219.712":
@@ -26,6 +26,6 @@ file . "mult_tb.vhd" "20160322015723.000" "20160321225734.612":
 file . "src/alu.vhd" "20160322033050.000" "20160322003219.594":
   entity alu at 4( 49) + 0 on 33;
   architecture alu of alu at 22( 438) + 0 on 34;
-file . "src/reg.vhd" "20160323015215.000" "20160322230057.087":
-  entity reg at 1( 0) + 0 on 37;
-  architecture reg of reg at 19( 348) + 0 on 38;
+file . "src/reg.vhd" "20160323133852.000" "20160323104041.272":
+  entity reg at 4( 47) + 0 on 37;
+  architecture reg of reg at 21( 371) + 0 on 38;

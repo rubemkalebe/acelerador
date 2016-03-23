@@ -1,0 +1,29 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Wed Mar 23 13:43:31 2016
+[*]
+[dumpfile] "/home/rubemkalebe/VHDL/acelerador/waves/reg1.ghw"
+[dumpfile_mtime] "Wed Mar 23 13:41:19 2016"
+[dumpfile_size] 1707
+[savefile] "/home/rubemkalebe/VHDL/acelerador/waves/reg1_check.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-27.631315 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.reg_tb.
+[treeopen] top.reg_tb.reg_0.
+[sst_width] 223
+[signals_width] 158
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+top.reg_tb.reg_0.clk
+top.reg_tb.reg_0.enable_write
+top.reg_tb.reg_0.enable_read
+@22
+#{top.reg_tb.reg_0.reg_input[31:0]} top.reg_tb.reg_0.reg_input[31] top.reg_tb.reg_0.reg_input[30] top.reg_tb.reg_0.reg_input[29] top.reg_tb.reg_0.reg_input[28] top.reg_tb.reg_0.reg_input[27] top.reg_tb.reg_0.reg_input[26] top.reg_tb.reg_0.reg_input[25] top.reg_tb.reg_0.reg_input[24] top.reg_tb.reg_0.reg_input[23] top.reg_tb.reg_0.reg_input[22] top.reg_tb.reg_0.reg_input[21] top.reg_tb.reg_0.reg_input[20] top.reg_tb.reg_0.reg_input[19] top.reg_tb.reg_0.reg_input[18] top.reg_tb.reg_0.reg_input[17] top.reg_tb.reg_0.reg_input[16] top.reg_tb.reg_0.reg_input[15] top.reg_tb.reg_0.reg_input[14] top.reg_tb.reg_0.reg_input[13] top.reg_tb.reg_0.reg_input[12] top.reg_tb.reg_0.reg_input[11] top.reg_tb.reg_0.reg_input[10] top.reg_tb.reg_0.reg_input[9] top.reg_tb.reg_0.reg_input[8] top.reg_tb.reg_0.reg_input[7] top.reg_tb.reg_0.reg_input[6] top.reg_tb.reg_0.reg_input[5] top.reg_tb.reg_0.reg_input[4] top.reg_tb.reg_0.reg_input[3] top.reg_tb.reg_0.reg_input[2] top.reg_tb.reg_0.reg_input[1] top.reg_tb.reg_0.reg_input[0]
+#{top.reg_tb.reg_0.aux[31:0]} top.reg_tb.reg_0.aux[31] top.reg_tb.reg_0.aux[30] top.reg_tb.reg_0.aux[29] top.reg_tb.reg_0.aux[28] top.reg_tb.reg_0.aux[27] top.reg_tb.reg_0.aux[26] top.reg_tb.reg_0.aux[25] top.reg_tb.reg_0.aux[24] top.reg_tb.reg_0.aux[23] top.reg_tb.reg_0.aux[22] top.reg_tb.reg_0.aux[21] top.reg_tb.reg_0.aux[20] top.reg_tb.reg_0.aux[19] top.reg_tb.reg_0.aux[18] top.reg_tb.reg_0.aux[17] top.reg_tb.reg_0.aux[16] top.reg_tb.reg_0.aux[15] top.reg_tb.reg_0.aux[14] top.reg_tb.reg_0.aux[13] top.reg_tb.reg_0.aux[12] top.reg_tb.reg_0.aux[11] top.reg_tb.reg_0.aux[10] top.reg_tb.reg_0.aux[9] top.reg_tb.reg_0.aux[8] top.reg_tb.reg_0.aux[7] top.reg_tb.reg_0.aux[6] top.reg_tb.reg_0.aux[5] top.reg_tb.reg_0.aux[4] top.reg_tb.reg_0.aux[3] top.reg_tb.reg_0.aux[2] top.reg_tb.reg_0.aux[1] top.reg_tb.reg_0.aux[0]
+#{top.reg_tb.reg_0.reg_output[31:0]} top.reg_tb.reg_0.reg_output[31] top.reg_tb.reg_0.reg_output[30] top.reg_tb.reg_0.reg_output[29] top.reg_tb.reg_0.reg_output[28] top.reg_tb.reg_0.reg_output[27] top.reg_tb.reg_0.reg_output[26] top.reg_tb.reg_0.reg_output[25] top.reg_tb.reg_0.reg_output[24] top.reg_tb.reg_0.reg_output[23] top.reg_tb.reg_0.reg_output[22] top.reg_tb.reg_0.reg_output[21] top.reg_tb.reg_0.reg_output[20] top.reg_tb.reg_0.reg_output[19] top.reg_tb.reg_0.reg_output[18] top.reg_tb.reg_0.reg_output[17] top.reg_tb.reg_0.reg_output[16] top.reg_tb.reg_0.reg_output[15] top.reg_tb.reg_0.reg_output[14] top.reg_tb.reg_0.reg_output[13] top.reg_tb.reg_0.reg_output[12] top.reg_tb.reg_0.reg_output[11] top.reg_tb.reg_0.reg_output[10] top.reg_tb.reg_0.reg_output[9] top.reg_tb.reg_0.reg_output[8] top.reg_tb.reg_0.reg_output[7] top.reg_tb.reg_0.reg_output[6] top.reg_tb.reg_0.reg_output[5] top.reg_tb.reg_0.reg_output[4] top.reg_tb.reg_0.reg_output[3] top.reg_tb.reg_0.reg_output[2] top.reg_tb.reg_0.reg_output[1] top.reg_tb.reg_0.reg_output[0]
+[pattern_trace] 1
+[pattern_trace] 0
