@@ -1,5 +1,5 @@
 -- Testbench for the ALU component.
--- Version: 03.21.2016.
+-- Version: 03.24.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -15,6 +15,7 @@ architecture alu_tb of alu_tb is
 
   signal s_a, s_b, s_x : std_logic_vector(n-1 downto 0);
   signal s_opcode : std_logic_vector(opc_bits-1 downto 0);
+  signal s_zero : std_logic;
 
 begin
 
@@ -23,6 +24,7 @@ begin
     a => s_a,
     b => s_b,
     opcode => s_opcode,
+    zero => s_zero,
     x => s_x
   );
 
@@ -77,6 +79,26 @@ begin
     s_a <= "00000101101111111001101011100001"; -- 96443105
     s_b <= "00000000000010000001110110011000"; -- 531864
     s_opcode <= "1010";
+    wait for 1 ns;
+    
+    s_a <= "11111111111101111110001001101000"; -- -531864
+    s_b <= "00000101101111111001101011100001"; -- 96443105
+    s_opcode <= "1011";
+    wait for 1 ns;
+
+    s_a <= "00000101101111111001101011100001"; -- 96443105
+    s_b <= "11111111111101111110001001101000"; -- -531864
+    s_opcode <= "1011";
+    wait for 1 ns;
+
+    s_a <= "00000000000010000001110110011000"; -- 531864
+    s_b <= "00000101101111111001101011100001"; -- 96443105
+    s_opcode <= "1100";
+    wait for 1 ns;
+
+    s_a <= "00000101101111111001101011100001"; -- 96443105
+    s_b <= "00000000000010000001110110011000"; -- 531864
+    s_opcode <= "1100";
     wait for 1 ns;
 
     wait;
