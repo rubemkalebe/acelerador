@@ -1,5 +1,5 @@
 -- Testbench for the multiplier component.
--- Version: 03.21.2016.
+-- Version: 03.31.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -13,8 +13,9 @@ end multiplier_tb;
 
 architecture multiplier_tb of multiplier_tb is
 
-  signal s_a, s_b, s_high, s_low : std_logic_vector(n-1 downto 0);
+  signal s_a, s_b : std_logic_vector(n-1 downto 0);
   signal s_op : std_logic;
+  signal s_x : std_logic_vector(2*n-1 downto 0);
 
 begin
 
@@ -23,8 +24,7 @@ begin
     a => s_a,
     b => s_b,
     op => s_op,
-    high => s_high,
-    low => s_low
+    x => s_x
   );
 
   process
