@@ -1,6 +1,6 @@
 -- A 32-bit ALU. Uses features from the standard library.
 -- Uses 4 bits for operations: and, or, xor, nor, sll, sla, sra, add, addu, sub, subu, slt, sltu.
--- Version: 03.24.2016.
+-- Version: 04.01.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -38,8 +38,8 @@ begin
       std_logic_vector(unsigned(a) + unsigned(b)) when (opcode = "1000") else
       std_logic_vector(signed(a) - signed(b)) when (opcode = "1001") else
       std_logic_vector(unsigned(a) - unsigned(b)) when (opcode = "1010") else
-      std_logic_vector(signed(a) - signed(b)) when (opcode = "1011") else
-      std_logic_vector(unsigned(a) - unsigned(b)) when (opcode = "1100") else
+      std_logic_vector(signed(a) - signed(b)) when (opcode = "1011") else -- slt
+      std_logic_vector(unsigned(a) - unsigned(b)) when (opcode = "1100") else -- sltu
       "00000000000000000000000000000000";
 
   zero <= aux(n-1) when (opcode = "1011" or opcode = "1100") else
