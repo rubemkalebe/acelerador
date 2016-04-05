@@ -1,5 +1,5 @@
 -- A basic unit contains 3 ALUs, 1 multiplier and 1 load/store.
--- Version: 04.01.2016.
+-- Version: 04.05.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -11,6 +11,10 @@ entity basic_unit is
   );
 
   port (
+    clk : in std_logic;
+    enable_read  : in std_logic;
+    enable_write : in std_logic;
+
     input_ALU_1A : in std_logic_vector(n-1 downto 0);
     input_ALU_1B : in std_logic_vector(n-1 downto 0);
     input_ALU_2A : in std_logic_vector(n-1 downto 0);
@@ -67,11 +71,55 @@ component multiplier is
   );
 end component;
 
+component reg is
+  generic (
+    n : natural := 32
+  );
+
+  port (
+      clk : in std_logic;
+      enable_read : in std_logic;
+      enable_write : in std_logic;
+      reg_input : in std_logic_vector(n-1 downto 0);
+      reg_output : out std_logic_vector(n-1 downto 0)
+  );
+end component;
+
+component reg_64 is
+  generic (
+    n : natural := 64
+  );
+
+  port (
+      clk : in std_logic;
+      enable_read : in std_logic;
+      enable_write : in std_logic;
+      reg_input : in std_logic_vector(n-1 downto 0);
+      reg_output : out std_logic_vector(n-1 downto 0)
+  );
+end component;
+
+  signal r1_out, r2_out, r3_out : std_logic_vector(n-1 downto 0);
+  signal r4_out : std_logic_vector(2*n-1 downto 0);
+
+  signal s_output_ALU_1, s_output_ALU_2, s_output_ALU_3 : std_logic_vector(n-1 downto 0);
+  signal s_output_MUL_1 : std_logic_vector(2*n-1 downto 0);
+
 begin
 
-  alu1 : alu port map(input_ALU_1A, input_ALU_1B, opcode_ALU_1, zero_ALU_1, output_ALU_1);
-  alu2 : alu port map(input_ALU_2A, input_ALU_2B, opcode_ALU_2, zero_ALU_2, output_ALU_2);
-  alu3 : alu port map(input_ALU_3A, input_ALU_3B, opcode_ALU_3, zero_ALU_3, output_ALU_3);
-  mul1 : multiplier port map(input_MUL_1A, input_MUL_1B, op_MUL_1, output_MUL_1);
+  alu1 : alu port map(input_ALU_1A, input_ALU_1B, opcode_ALU_1, zero_ALU_1, s_output_ALU_1);
+  alu2 : alu port map(input_ALU_2A, input_ALU_2B, opcode_ALU_2, zero_ALU_2, s_output_ALU_2);
+  alu3 : alu port map(input_ALU_3A, input_ALU_3B, opcode_ALU_3, zero_ALU_3, s_output_ALU_3);
+  mul1 : multiplier port map(input_MUL_1A, input_MUL_1B, op_MUL_1, s_output_MUL_1);
+
+  re1 : reg port map(clk, enable_read, enable_write, s_output_ALU_1, r1_out);
+  re2 : reg port map(clk, enable_read, enable_write, s_output_ALU_2, r2_out);
+  re3 : reg port map(clk, enable_read, enable_write, s_output_ALU_3, r3_out);
+  re4 : reg_64 port map(clk, enable_read, enable_write, s_output_MUL_1, r4_out);
+
+  output_ALU_1 <= s_output_ALU_1;
+  output_ALU_2 <= s_output_ALU_2;
+  output_ALU_3 <= s_output_ALU_3;
+  output_MUL_1 <= s_output_MUL_1;
 
 end basic_unit;
