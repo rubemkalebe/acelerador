@@ -1,4 +1,7 @@
 v 3
+file . "testbenches/register_file_tb.vhd" "20160413025904.000" "20160412235914.294":
+  entity register_file_tb at 4( 67) + 0 on 81;
+  architecture register_file_tb of register_file_tb at 15( 257) + 0 on 82;
 file . "src/reg_64.vhd" "20160405064408.000" "20160405041416.645":
   entity reg_64 at 4( 47) + 0 on 69;
   architecture reg_64 of reg_64 at 21( 377) + 0 on 70;
@@ -17,3 +20,6 @@ file . "src/basic_unit.vhd" "20160405065932.000" "20160405041416.900":
 file . "src/reg.vhd" "20160323134358.000" "20160405041416.602":
   entity reg at 4( 47) + 0 on 67;
   architecture reg of reg at 21( 371) + 0 on 68;
+file . "src/register_file.vhd" "20160413025630.000" "20160412235913.781":
+  entity register_file at 5( 187) + 0 on 79;
+  architecture register_file of register_file at 159( 8690) + 0 on 80;

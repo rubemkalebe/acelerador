@@ -1,14 +1,14 @@
 -- Testbench for the local register file.
--- Version: 03.29.2016.
+-- Version: 04.12.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
 
 entity register_file_tb is
   generic (
-    DATA_WIDTH : natural := 32;
-    ADDR_WIDTH : natural := 5;
-    N : natural := 32
+  DATA_WIDTH : natural := 32;
+  ADDR_WIDTH : natural := 6;
+  N : natural := 34
   );
 end register_file_tb;
 
@@ -21,24 +21,25 @@ architecture register_file_tb of register_file_tb is
   s_write_address13, s_write_address14, s_write_address15, s_write_address16, s_write_address17, s_write_address18,
   s_write_address19, s_write_address20, s_write_address21, s_write_address22, s_write_address23, s_write_address24,
   s_write_address25, s_write_address26, s_write_address27, s_write_address28, s_write_address29, s_write_address30,
-  s_write_address31, s_write_address32 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
+  s_write_address31, s_write_address32, s_write_address33,
+  s_write_address34 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "000000";
 
   signal s_input1, s_input2, s_input3, s_input4, s_input5, s_input6, s_input7, s_input8, s_input9, s_input10,
   s_input11, s_input12, s_input13, s_input14, s_input15, s_input16, s_input17, s_input18, s_input19, s_input20,
   s_input21, s_input22, s_input23, s_input24, s_input25, s_input26, s_input27, s_input28, s_input29, s_input30,
-  s_input31, s_input32 : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
+  s_input31, s_input32, s_input33, s_input34 : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
 
   signal s_read_address1, s_read_address2, s_read_address3, s_read_address4, s_read_address5, s_read_address6,
   s_read_address7, s_read_address8, s_read_address9, s_read_address10, s_read_address11, s_read_address12,
   s_read_address13, s_read_address14, s_read_address15, s_read_address16, s_read_address17, s_read_address18,
   s_read_address19, s_read_address20, s_read_address21, s_read_address22, s_read_address23, s_read_address24,
   s_read_address25, s_read_address26, s_read_address27, s_read_address28, s_read_address29,
-  s_read_address30 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
+  s_read_address30, s_read_address31, s_read_address32 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "000000";
 
   signal s_output1, s_output2, s_output3, s_output4, s_output5, s_output6, s_output7, s_output8, s_output9,
   s_output10, s_output11, s_output12, s_output13, s_output14, s_output15, s_output16, s_output17, s_output18,
   s_output19, s_output20, s_output21, s_output22, s_output23, s_output24, s_output25, s_output26, s_output27,
-  s_output28, s_output29, s_output30 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  s_output28, s_output29, s_output30, s_output31, s_output32 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
 begin
 
@@ -79,6 +80,8 @@ begin
      write_address30 => s_write_address30,
      write_address31 => s_write_address31,
      write_address32 => s_write_address32,
+     write_address33 => s_write_address33,
+     write_address34 => s_write_address34,
      input1 => s_input1,
      input2 => s_input2,
      input3 => s_input3,
@@ -111,6 +114,8 @@ begin
      input30 => s_input30,
      input31 => s_input31,
      input32 => s_input32,
+     input33 => s_input33,
+     input34 => s_input34,
      read_address1 => s_read_address1,
      read_address2 => s_read_address2,
      read_address3 => s_read_address3,
@@ -141,6 +146,8 @@ begin
      read_address28 => s_read_address28,
      read_address29 => s_read_address29,
      read_address30 => s_read_address30,
+     read_address31 => s_read_address31,
+     read_address32 => s_read_address32,
      output1 => s_output1,
      output2 => s_output2,
      output3 => s_output3,
@@ -170,7 +177,9 @@ begin
      output27 => s_output27,
      output28 => s_output28,
      output29 => s_output29,
-     output30 => s_output30
+     output30 => s_output30,
+     output31 => s_output31,
+     output32 => s_output32
   );
 
   clock : process
@@ -198,32 +207,32 @@ begin
   rf : process
   begin
     s_input1         <= "00000000000000000000000000000001";
-    s_write_address1 <= "11111";
+    s_write_address1 <= "011111";
     s_input2         <= "00000000000000000000000000000010";
-    s_write_address2 <= "11110";
+    s_write_address2 <= "011110";
     s_input3         <= "00000000000000000000000000000011";
-    s_write_address3 <= "11101";
+    s_write_address3 <= "011101";
     s_input4         <= "00000000000000000000000000000100";
-    s_write_address4 <= "11100";
+    s_write_address4 <= "011100";
     wait for 300 ns;
-    s_read_address1 <= "11111";
-    s_read_address2 <= "11110";
-    s_read_address3 <= "11101";
-    s_read_address4 <= "11100";
+    s_read_address1 <= "011111";
+    s_read_address2 <= "011110";
+    s_read_address3 <= "011101";
+    s_read_address4 <= "011100";
 
     s_input1         <= "00000000000000000000000000000101";
-    s_write_address1 <= "11111";
+    s_write_address1 <= "011111";
     s_input2         <= "00000000000000000000000000000110";
-    s_write_address2 <= "11110";
+    s_write_address2 <= "011110";
     s_input3         <= "00000000000000000000000000000111";
-    s_write_address3 <= "11101";
+    s_write_address3 <= "011101";
     s_input4         <= "00000000000000000000000000001000";
-    s_write_address4 <= "11100";
+    s_write_address4 <= "011100";
     wait for 300 ns;
-    s_read_address1 <= "11111";
-    s_read_address2 <= "11110";
-    s_read_address3 <= "11101";
-    s_read_address4 <= "11100";
+    s_read_address1 <= "011111";
+    s_read_address2 <= "011110";
+    s_read_address3 <= "011101";
+    s_read_address4 <= "011100";
     wait;
   end process;
 

@@ -1,6 +1,6 @@
--- Local register file with 32-bit general purpose registers.
--- It can support 32 writing access and 30 reading access in parallel.
--- Version: 03.29.2016.
+-- Local register file with 34 x 32-bit general purpose registers (HIGH and LOW included).
+-- It can support 34 writing access and 32 reading access in parallel.
+-- Version: 04.12.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -9,8 +9,8 @@ use ieee.numeric_std.all;
 entity register_file is
   generic (
     DATA_WIDTH : natural := 32;
-    ADDR_WIDTH : natural := 5;
-    N : natural := 32
+    ADDR_WIDTH : natural := 6;
+    N : natural := 34
   );
 
   port (
@@ -50,6 +50,8 @@ entity register_file is
     write_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     write_address31 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     write_address32 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    write_address33 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    write_address34 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
 
     input1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -83,6 +85,8 @@ entity register_file is
     input30 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input31 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
 
     read_address1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     read_address2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
@@ -114,6 +118,8 @@ entity register_file is
     read_address28 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     read_address29 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     read_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    read_address31 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    read_address32 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
 
     output1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
     output2 : out std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -144,7 +150,9 @@ entity register_file is
     output27 : out std_logic_vector(DATA_WIDTH-1 downto 0);
     output28 : out std_logic_vector(DATA_WIDTH-1 downto 0);
     output29 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output30 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+    output30 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output31 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output32 : out std_logic_vector(DATA_WIDTH-1 downto 0)
   );
 end register_file;
 
@@ -161,7 +169,7 @@ begin
       reg_file(to_integer(unsigned(write_address1))) <= input1;
       reg_file(to_integer(unsigned(write_address2))) <= input2;
       reg_file(to_integer(unsigned(write_address3))) <= input3;
-      reg_file(to_integer(unsigned(write_address4))) <= input4;
+      --reg_file(to_integer(unsigned(write_address4))) <= input4;
       reg_file(to_integer(unsigned(write_address5))) <= input5;
       reg_file(to_integer(unsigned(write_address6))) <= input6;
       reg_file(to_integer(unsigned(write_address7))) <= input7;
@@ -190,6 +198,8 @@ begin
       reg_file(to_integer(unsigned(write_address30))) <= input30;
       reg_file(to_integer(unsigned(write_address31))) <= input31;
       reg_file(to_integer(unsigned(write_address32))) <= input32;
+      reg_file(to_integer(unsigned(write_address33))) <= input33;
+      reg_file(to_integer(unsigned(write_address34))) <= input34;
     end if;
   end process;
 
@@ -226,6 +236,8 @@ begin
       output28 <= reg_file(to_integer(unsigned(read_address28)));
       output29 <= reg_file(to_integer(unsigned(read_address29)));
       output30 <= reg_file(to_integer(unsigned(read_address30)));
+      output31 <= reg_file(to_integer(unsigned(read_address31)));
+      output32 <= reg_file(to_integer(unsigned(read_address32)));
     end if;
   end process;
 
