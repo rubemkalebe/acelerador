@@ -1,5 +1,5 @@
 -- Testbench for a basic unit component.
--- Version: 04.05.2016.
+-- Version: 04.13.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -31,7 +31,8 @@ architecture basic_unit_tb of basic_unit_tb is
   signal s_input_MUL_1A : std_logic_vector(n-1 downto 0);
   signal s_input_MUL_1B : std_logic_vector(n-1 downto 0);
   signal s_op_MUL_1 : std_logic;
-  signal s_output_MUL_1 : std_logic_vector(2*n-1 downto 0);
+  signal s_output_MUL_HI : std_logic_vector(n-1 downto 0);
+  signal s_output_MUL_LO : std_logic_vector(n-1 downto 0);
   signal s_clk : std_logic;
   signal s_enable_read : std_logic;
   signal s_enable_write : std_logic;
@@ -58,7 +59,8 @@ begin
     input_MUL_1A => s_input_MUL_1A,
     input_MUL_1B => s_input_MUL_1B,
     op_MUL_1 => s_op_MUL_1,
-    output_MUL_1 => s_output_MUL_1,
+    output_MUL_HI => s_output_MUL_HI,
+    output_MUL_LO => s_output_MUL_LO,
     clk => s_clk,
     enable_read => s_enable_read,
     enable_write => s_enable_write

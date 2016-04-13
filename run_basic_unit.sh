@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ghdl -a src/reg.vhd
-ghdl -a src/reg_64.vhd
 ghdl -a src/alu.vhd
 ghdl -a src/multiplier.vhd
 ghdl -a src/basic_unit.vhd
