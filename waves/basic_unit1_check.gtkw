@@ -1,0 +1,77 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Fri Apr 15 22:33:11 2016
+[*]
+[dumpfile] "/home/rubemkalebe/VHDL/acelerador/waves/basic_unit1.vcd"
+[dumpfile_mtime] "Fri Apr 15 22:28:34 2016"
+[dumpfile_size] 14027
+[savefile] "/home/rubemkalebe/VHDL/acelerador/waves/basic_unit1_check.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-26.823532 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] basic_unit_0.
+[sst_width] 223
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+s_clk
+s_enable_read
+s_enable_write
+@22
+s_input_alu_1a[31:0]
+s_input_alu_1b[31:0]
+s_input_alu_2a[31:0]
+s_input_alu_2b[31:0]
+s_input_alu_3a[31:0]
+s_input_alu_3b[31:0]
+s_input_mul_1a[31:0]
+s_input_mul_1b[31:0]
+@28
+s_op_mul_1
+@22
+s_opcode_alu_1[3:0]
+s_opcode_alu_2[3:0]
+s_opcode_alu_3[3:0]
+s_output_alu_1[31:0]
+s_output_alu_2[31:0]
+s_output_alu_3[31:0]
+s_output_mul_hi[31:0]
+s_output_mul_lo[31:0]
+@28
+s_zero_alu_1
+s_zero_alu_2
+s_zero_alu_3
+@200
+-
+@22
+basic_unit_0.re1.reg_input[31:0]
+basic_unit_0.re1.aux[31:0]
+basic_unit_0.re1.reg_output[31:0]
+@200
+-
+@22
+basic_unit_0.re2.reg_input[31:0]
+basic_unit_0.re2.aux[31:0]
+basic_unit_0.re2.reg_output[31:0]
+@200
+-
+@22
+basic_unit_0.re3.reg_input[31:0]
+basic_unit_0.re3.aux[31:0]
+basic_unit_0.re3.reg_output[31:0]
+@200
+-
+@22
+basic_unit_0.re4.reg_input[31:0]
+basic_unit_0.re4.aux[31:0]
+basic_unit_0.re4.reg_output[31:0]
+@200
+-
+@22
+basic_unit_0.re5.reg_input[31:0]
+basic_unit_0.re5.aux[31:0]
+basic_unit_0.re5.reg_output[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

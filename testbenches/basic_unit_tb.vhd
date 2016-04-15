@@ -1,5 +1,5 @@
 -- Testbench for a basic unit component.
--- Version: 04.13.2016.
+-- Version: 04.15.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -33,9 +33,11 @@ architecture basic_unit_tb of basic_unit_tb is
   signal s_op_MUL_1 : std_logic;
   signal s_output_MUL_HI : std_logic_vector(n-1 downto 0);
   signal s_output_MUL_LO : std_logic_vector(n-1 downto 0);
-  signal s_clk : std_logic;
+  signal s_clk : std_logic := '0';
   signal s_enable_read : std_logic;
   signal s_enable_write : std_logic;
+
+  constant num_cycles : integer := 50;
 
 begin
 
@@ -66,6 +68,38 @@ begin
     enable_write => s_enable_write
   );
 
+  clock : process
+	begin
+    for i in 1 to num_cycles loop
+        s_clk <= not s_clk;
+        wait for 5 ns;
+        s_clk <= not s_clk;
+        wait for 5 ns;
+        -- clock period = 10 ns
+      end loop;
+      wait;
+	end process;
+
+  write : process
+	begin
+		s_enable_write <= '0';
+    s_enable_read <= '1';
+		wait for 50 ns;
+    s_enable_write <= '1';
+    s_enable_read <= '0';
+    wait for 100 ns;
+    s_enable_write <= '0';
+    s_enable_read <= '1';
+		wait for 150 ns;
+    s_enable_write <= '1';
+    s_enable_read <= '0';
+    wait for 100 ns;
+    s_enable_write <= '0';
+    s_enable_read <= '1';
+		wait for 50 ns;
+    wait;
+	end process;
+
   process
   begin
 
@@ -81,7 +115,7 @@ begin
     s_input_MUL_1A <= "00000000000010000100001111110111"; -- 541687
 		s_input_MUL_1B <= "00000000000000000111110110010001"; -- 32145
     s_op_MUL_1 <= '1';
-    wait for 1 ns;
+    wait for 200 ns;
 
     s_input_ALU_1A <= "00000000000000000000000000010111"; -- 23
     s_input_ALU_1B <= "00000000000000000000000000000001"; -- 1
@@ -95,7 +129,7 @@ begin
     s_input_MUL_1A <= "11111111111101111011110000001001"; -- -541687
 		s_input_MUL_1B <= "11111111111111111000001001101111"; -- -32145
     s_op_MUL_1 <= '0';
-    wait for 1 ns;
+    wait for 200 ns;
 
     wait;
   end process;

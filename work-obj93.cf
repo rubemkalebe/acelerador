@@ -1,25 +1,25 @@
 v 3
-file . "src/register_file.vhd" "20160413025630.000" "20160412235913.781":
-  entity register_file at 5( 187) + 0 on 79;
-  architecture register_file of register_file at 159( 8690) + 0 on 80;
-file . "src/reg.vhd" "20160323134358.000" "20160413001942.452":
-  entity reg at 4( 47) + 0 on 99;
-  architecture reg of reg at 21( 371) + 0 on 100;
-file . "src/basic_unit.vhd" "20160413031843.000" "20160413001942.734":
-  entity basic_unit at 4( 89) + 0 on 105;
-  architecture basic_unit of basic_unit at 45( 1366) + 0 on 106;
-file . "src/alu.vhd" "20160401232308.000" "20160413001942.498":
-  entity alu at 5( 181) + 0 on 101;
-  architecture alu of alu at 24( 599) + 0 on 102;
-file . "src/multiplier.vhd" "20160413031005.000" "20160413001942.663":
-  entity multiplier at 4( 90) + 0 on 103;
-  architecture multiplier of multiplier at 22( 467) + 0 on 104;
-file . "testbenches/basic_unit_tb.vhd" "20160413031323.000" "20160413001942.923":
-  entity basic_unit_tb at 4( 66) + 0 on 107;
-  architecture basic_unit_tb of basic_unit_tb at 14( 231) + 0 on 108;
+file . "src/register_file.vhd" "20160413025630.000" "20160415185658.246":
+  entity register_file at 5( 187) + 0 on 229;
+  architecture register_file of register_file at 159( 8690) + 0 on 230;
+file . "src/reg.vhd" "20160323134358.000" "20160415192833.895":
+  entity reg at 4( 47) + 0 on 351;
+  architecture reg of reg at 21( 371) + 0 on 352;
+file . "src/basic_unit.vhd" "20160415214635.000" "20160415192834.190":
+  entity basic_unit at 4( 89) + 0 on 357;
+  architecture basic_unit of basic_unit at 46( 1367) + 0 on 358;
+file . "src/alu.vhd" "20160401232308.000" "20160415192833.943":
+  entity alu at 5( 181) + 0 on 353;
+  architecture alu of alu at 24( 599) + 0 on 354;
+file . "src/multiplier.vhd" "20160413031005.000" "20160415192834.111":
+  entity multiplier at 4( 90) + 0 on 355;
+  architecture multiplier of multiplier at 22( 467) + 0 on 356;
+file . "testbenches/basic_unit_tb.vhd" "20160415222829.000" "20160415192834.454":
+  entity basic_unit_tb at 4( 66) + 0 on 359;
+  architecture basic_unit_tb of basic_unit_tb at 14( 231) + 0 on 360;
 file . "src/reg_64.vhd" "20160405064408.000" "20160405041416.645":
   entity reg_64 at 4( 47) + 0 on 69;
   architecture reg_64 of reg_64 at 21( 377) + 0 on 70;
-file . "testbenches/register_file_tb.vhd" "20160413025904.000" "20160412235914.294":
-  entity register_file_tb at 4( 67) + 0 on 81;
-  architecture register_file_tb of register_file_tb at 15( 257) + 0 on 82;
+file . "testbenches/register_file_tb.vhd" "20160413025904.000" "20160415185658.789":
+  entity register_file_tb at 4( 67) + 0 on 231;
+  architecture register_file_tb of register_file_tb at 15( 257) + 0 on 232;
