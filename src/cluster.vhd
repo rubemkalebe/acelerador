@@ -1,5 +1,5 @@
 -- Short description...
--- Version: 04.13.2016.
+-- Version: 04.19.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -7,7 +7,8 @@ use ieee.std_logic_1164.all;
 entity cluster is
   generic (
     DATA_WIDTH : natural := 32;
-    INST_WIDTH : natural := 35
+    INST_WIDTH : natural := 35;
+    ADDR_RF_WIDTH : natural := 6
   );
 
   port (
@@ -257,49 +258,55 @@ component register_file is
   );
 end component;
 
+-- Signals for register file
+signal s_write_address1, s_write_address2, s_write_address3, s_write_address4, s_write_address5,
+       s_write_address6, s_write_address7, s_write_address8, s_write_address9, s_write_address10,
+       s_write_address11, s_write_address12, s_write_address13, s_write_address14, s_write_address15,
+       s_write_address16, s_write_address17, s_write_address18, s_write_address19, s_write_address20,
+       s_write_address21, s_write_address22, s_write_address23, s_write_address24, s_write_address25,
+       s_write_address26, s_write_address27, s_write_address28, s_write_address29, s_write_address30,
+       s_write_address31, s_write_address32, s_write_address33, s_write_address34 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+
+signal s_input1, s_input2, s_input3, s_input4, s_input5, s_input6, s_input7, s_input8, s_input9, s_input10,
+       s_input11, s_input12, s_input13, s_input14, s_input15, s_input16, s_input17, s_input18, s_input19, s_input20,
+       s_input21, s_input22, s_input23, s_input24, s_input25, s_input26, s_input27, s_input28, s_input29, s_input30,
+       s_input31, s_input32, s_input33, s_input34 : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+signal s_read_address1, s_read_address2, s_read_address3, s_read_address4, s_read_address5,
+      s_read_address6, s_read_address7, s_read_address8, s_read_address9, s_read_address10,
+      s_read_address11, s_read_address12, s_read_address13, s_read_address14, s_read_address15,
+      s_read_address16, s_read_address17, s_read_address18, s_read_address19, s_read_address20,
+      s_read_address21, s_read_address22, s_read_address23, s_read_address24, s_read_address25,
+      s_read_address26, s_read_address27, s_read_address28, s_read_address29, s_read_address30,
+      s_read_address31, s_read_address32 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+
+signal s_output1, s_output2, s_output3, s_output4, s_output5, s_output6, s_output7, s_output8, s_output9, s_output10,
+      s_output11, s_output12, s_output13, s_output14, s_output15, s_output16, s_output17, s_output18, s_output19, s_output20,
+      s_output21, s_output22, s_output23, s_output24, s_output25, s_output26, s_output27, s_output28, s_output29, s_output30,
+      s_output31, s_output32 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
 begin
 
-  input_ALU_1A <=   a1;
-  input_ALU_1B <=   b1;
+  rf : register_file port map(clk, enable_read, enable_write, s_write_address1, s_write_address2, s_write_address3,
+          s_write_address4, s_write_address5, s_write_address6, s_write_address7, s_write_address8, s_write_address9,
+          s_write_address10, s_write_address11, s_write_address12, s_write_address13, s_write_address14, s_write_address15,
+          s_write_address16, s_write_address17, s_write_address18, s_write_address19, s_write_address20, s_write_address21,
+          s_write_address22, s_write_address23, s_write_address24, s_write_address25, s_write_address26, s_write_address27,
+          s_write_address28, s_write_address29, s_write_address30, s_write_address31, s_write_address32, s_write_address33,
+          s_write_address34, s_input1, s_input2, s_input3, s_input4, s_input5, s_input6, s_input7, s_input8, s_input9,
+          s_input10, s_input11, s_input12, s_input13, s_input14, s_input15, s_input16, s_input17, s_input18, s_input19,
+          s_input20, s_input21, s_input22, s_input23, s_input24, s_input25, s_input26, s_input27, s_input28, s_input29,
+          s_input30, s_input31, s_input32, s_input33, s_input34, s_read_address1, s_read_address2, s_read_address3,
+          s_read_address4, s_read_address5, s_read_address6, s_read_address7, s_read_address8, s_read_address9,
+          s_read_address10, s_read_address11, s_read_address12, s_read_address13, s_read_address14, s_read_address15,
+          s_read_address16, s_read_address17, s_read_address18, s_read_address19, s_read_address20, s_read_address21,
+          s_read_address22, s_read_address23, s_read_address24, s_read_address25, s_read_address26, s_read_address27,
+          s_read_address28, s_read_address29, s_read_address30, s_read_address31, s_read_address32, s_output1,
+          s_output2, s_output3, s_output4, s_output5, s_output6, s_output7, s_output8, s_output9, s_output10,
+          s_output11, s_output12, s_output13, s_output14, s_output15, s_output16, s_output17, s_output18, s_output19,
+          s_output20, s_output21, s_output22, s_output23, s_output24, s_output25, s_output26, s_output27, s_output28,
+          s_output29, s_output30, s_output31, s_output32);
+          
 
-  input_ALU_2A <= ALU_1_out when instruction2(25 downto 21) = instruction1(15 downto 11) else
-                  a2;
-
-  dep_2_B <=  ALU_1_out when instruction2(20 downto 16) = instruction1(15 downto 11) else
-              (others => '0');
-
-
-  dep_3_A <=  ALU_2_out when instruction3(25 downto 21) = instruction2(15 downto 11) else
-              ALU_1_out when instruction3(25 downto 21) = instruction1(15 downto 11) else
-              (others => '0');
-
-  dep_3_B <=  ALU_2_out when instruction3(20 downto 16) = instruction2(15 downto 11) else
-              ALU_1_out when instruction3(20 downto 16) = instruction1(15 downto 11) else
-              (others => '0');
-
-  dep_4_A <=  ALU_3_out when instruction4(25 downto 21) = instruction3(15 downto 11) else
-              ALU_2_out when instruction4(25 downto 21) = instruction2(15 downto 11) else
-              ALU_1_out when instruction4(25 downto 21) = instruction1(15 downto 11) else
-              (others => '0');
-
-  dep_4_B <=  ALU_3_out when instruction4(20 downto 16) = instruction3(15 downto 11) else
-              ALU_2_out when instruction4(20 downto 16) = instruction2(15 downto 11) else
-              ALU_1_out when instruction4(20 downto 16) = instruction1(15 downto 11) else
-              (others => '0');
-
-  dep_5_A <=  MUL_1_HI  when instruction5(25 downto 21) = instruction4(15 downto 11) else
-              MUL_1_LO  when instruction5(25 downto 21) = instruction4(10 downto 6) else
-              ALU_3_out when instruction5(25 downto 21) = instruction3(15 downto 11) else
-              ALU_2_out when instruction5(25 downto 21) = instruction2(15 downto 11) else
-              ALU_1_out when instruction5(25 downto 21) = instruction1(15 downto 11) else
-              (others => '0');
-
-  dep_5_B <=  MUL_1_HI  when instruction5(20 downto 16) = instruction4(15 downto 11) else
-              MUL_1_LO  when instruction5(20 downto 16) = instruction4(10 downto 6) else
-              ALU_3_out when instruction5(20 downto 16) = instruction3(15 downto 11) else
-              ALU_2_out when instruction5(20 downto 16) = instruction2(15 downto 11) else
-              ALU_1_out when instruction5(20 downto 16) = instruction1(15 downto 11) else
-              (others => '0');
 
 end cluster;
