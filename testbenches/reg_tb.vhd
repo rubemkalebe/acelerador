@@ -1,5 +1,5 @@
 -- Testbench for a register component.
--- Version: 04.19.2016.
+-- Version: 04.21.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -42,25 +42,34 @@ begin
       wait;
 	end process;
 
-  reg : process
+  write : process
   begin
-    s_enable_write <= '1', '0' after 80 ns;
-    s_enable_read <= '0', '1' after 240 ns;
+    s_enable_write <= '1';
+    wait for 80 ns;
+    s_enable_write <= '0';
+    wait for 80 ns;
+    s_enable_write <= '1';
+    wait for 80 ns;
+    s_enable_write <= '0';
+    wait;
+  end process;
+
+  read : process
+  begin
+    s_enable_read <= '0';
+    wait for 80 ns;
+    s_enable_read <= '1';
+    wait for 160 ns;
+    s_enable_read <= '0';
     wait;
   end process;
 
   test : process
   begin
     s_reg_input <= "00100000000000000000000000000000";
-    --s_enable_write <= '1';
-    --wait for 10 ns;
-    --s_enable_write <= '0';
 		wait for 100 ns;
 
     s_reg_input <= "00000000000000000000000000000010";
-    --s_enable_read <= '1';
-    --wait for 10 ns;
-    --s_enable_read <= '0';
 		wait for 100 ns;
 		wait;
   end process;
