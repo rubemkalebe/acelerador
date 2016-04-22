@@ -1,8 +1,8 @@
 -- Local register file with 34 x 32-bit general purpose registers (HIGH and LOW included).
 -- It doesn't write at r0, but reads zero from there.
--- It can write and bypass.
+-- The read operation is not clocked -- it is combinational.
 -- It has two inputs and two outputs.
--- Version: 04.21.2016.
+-- Version: 04.22.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -41,41 +41,21 @@ architecture register_file of register_file is
 
 begin
 
+  output1 <= "00000000000000000000000000000000" when (enable_read = '1' and to_integer(unsigned(read_address1)) = 0) else
+              reg_file(to_integer(unsigned(read_address1)));
+
+  output2 <= "00000000000000000000000000000000" when (enable_read = '1' and to_integer(unsigned(read_address2)) = 0) else
+              reg_file(to_integer(unsigned(read_address2)));
+
   regFile : process(clk) is
   begin
     if(rising_edge(clk)) then
-      -- Read A before bypass
-      if(enable_read = '1' and to_integer(unsigned(read_address1)) /= 0) then
-        output1 <= reg_file(to_integer(unsigned(read_address1)));
-      elsif(enable_read = '1' and to_integer(unsigned(read_address1)) = 0) then
-        output1 <= "00000000000000000000000000000000";
-      end if;
-
-      -- Read B before bypass
-      if(enable_read = '1' and to_integer(unsigned(read_address2)) /= 0) then
-        output2 <= reg_file(to_integer(unsigned(read_address2)));
-      elsif(enable_read = '1' and to_integer(unsigned(read_address2)) = 0) then
-        output2 <= "00000000000000000000000000000000";
-      end if;
-
-      -- Write 1 and bypass
       if(enable_write = '1' and to_integer(unsigned(write_address1)) /= 0) then
           reg_file(to_integer(unsigned(write_address1))) <= input1;
-          if(read_address1 = write_address1) then
-            output1 <= input1;
-          elsif(read_address2 = write_address1) then
-            output2 <= input1;
-          end if;
       end if;
 
-      -- Write 2 and bypass
       if(enable_write = '1' and to_integer(unsigned(write_address2)) /= 0) then
           reg_file(to_integer(unsigned(write_address2))) <= input2;
-          if(read_address1 = write_address2) then
-            output1 <= input2;
-          elsif(read_address2 = write_address2) then
-            output2 <= input2;
-          end if;
       end if;
     end if;
   end process;
