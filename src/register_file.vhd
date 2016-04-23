@@ -12,7 +12,7 @@ entity register_file is
   generic (
     DATA_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 6;
-    N : natural := 34
+    N : natural := 35
   );
 
   port (

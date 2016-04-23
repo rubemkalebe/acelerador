@@ -1,5 +1,6 @@
--- Short description...
--- Version: 04.19.2016.
+-- A cluster with 3 basic units and a local register file.
+-- It can run 15 instructions.
+-- Version: 04.23.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -7,8 +8,9 @@ use ieee.std_logic_1164.all;
 entity cluster is
   generic (
     DATA_WIDTH : natural := 32;
-    INST_WIDTH : natural := 35;
-    ADDR_RF_WIDTH : natural := 6
+    INST_WIDTH : natural := 34;
+    ADDR_RF_WIDTH : natural := 6;
+    opc_bits  : natural := 4
   );
 
   port (
@@ -50,6 +52,41 @@ entity cluster is
     reg_input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     reg_input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     reg_input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+
+    reg_addr1 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr2 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr3 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr4 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr5 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr6 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr7 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr8 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr9 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr10 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr11 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr12 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr13 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr14 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr15 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr16 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr17 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr18 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr19 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr20 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr21 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr22 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr23 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr24 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr25 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr26 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr27 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr28 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr29 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr30 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr31 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr32 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr33 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr34 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
 
     instruction1 : in std_logic_vector(INST_WIDTH-1 downto 0);
     instruction2 : in std_logic_vector(INST_WIDTH-1 downto 0);
@@ -112,7 +149,7 @@ component register_file is
   generic (
     DATA_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 6;
-    N : natural := 34
+    N : natural := 35
   );
 
   port (
@@ -122,191 +159,354 @@ component register_file is
 
     write_address1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     write_address2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address3 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address4 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address5 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address6 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address7 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address8 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address9 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address10 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address11 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address12 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address13 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address14 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address15 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address16 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address17 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address18 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address19 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address20 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address21 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address22 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address23 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address24 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address25 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address26 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address27 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address28 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address29 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address31 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address32 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address33 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address34 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
 
     input1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input3 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input4 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input5 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input6 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input7 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input8 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input9 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input10 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input11 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input12 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input13 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input14 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input15 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input16 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input17 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input18 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input19 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input20 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input21 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input22 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input23 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input24 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input25 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input26 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input27 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input28 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input29 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input30 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input31 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
 
     read_address1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
     read_address2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address3 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address4 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address5 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address6 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address7 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address8 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address9 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address10 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address11 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address12 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address13 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address14 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address15 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address16 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address17 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address18 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address19 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address20 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address21 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address22 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address23 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address24 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address25 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address26 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address27 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address28 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address29 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address31 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address32 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
 
     output1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output2 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output3 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output4 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output5 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output6 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output7 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output8 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output9 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output10 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output11 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output12 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output13 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output14 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output15 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output16 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output17 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output18 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output19 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output20 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output21 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output22 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output23 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output24 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output25 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output26 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output27 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output28 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output29 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output30 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output31 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output32 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+    output2 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+  );
+end component;
+
+component load_input_signals is
+  generic (
+    DATA_WIDTH : natural := 32;
+    INST_WIDTH : natural := 34;
+    ADDR_RF_WIDTH : natural := 6
+  );
+
+  port (
+    reg_input1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input3 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input4 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input5 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input6 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input7 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input8 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input9 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input10 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input11 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input12 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input13 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input14 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input15 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input16 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input17 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input18 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input19 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input20 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input21 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input22 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input23 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input24 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input25 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input26 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input27 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input28 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input29 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input30 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input31 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    reg_addr1 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr2 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr3 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr4 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr5 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr6 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr7 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr8 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr9 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr10 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr11 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr12 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr13 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr14 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr15 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr16 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr17 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr18 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr19 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr20 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr21 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr22 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr23 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr24 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr25 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr26 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr27 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr28 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr29 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr30 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr31 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr32 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr33 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    reg_addr34 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+    instruction1 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction2 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction3 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction4 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction5 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction6 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction7 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction8 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction9 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction10 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction11 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction12 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction13 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction14 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    instruction15 : in std_logic_vector(INST_WIDTH-1 downto 0);
+    inst1_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst1_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst2_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst2_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst3_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst3_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst4_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst4_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst5_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst5_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst6_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst6_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst7_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst7_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst8_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst8_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst9_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst9_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst10_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst10_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst11_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst11_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst12_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst12_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst13_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst13_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst14_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst14_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst15_aux_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst15_aux_B : out std_logic_vector(DATA_WIDTH-1 downto 0)
   );
 end component;
 
 -- Signals for register file
-signal s_write_address1, s_write_address2, s_write_address3, s_write_address4, s_write_address5,
-       s_write_address6, s_write_address7, s_write_address8, s_write_address9, s_write_address10,
-       s_write_address11, s_write_address12, s_write_address13, s_write_address14, s_write_address15,
-       s_write_address16, s_write_address17, s_write_address18, s_write_address19, s_write_address20,
-       s_write_address21, s_write_address22, s_write_address23, s_write_address24, s_write_address25,
-       s_write_address26, s_write_address27, s_write_address28, s_write_address29, s_write_address30,
-       s_write_address31, s_write_address32, s_write_address33, s_write_address34 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+  signal s_write_address1, s_write_address2 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+  signal s_input1, s_input2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_read_address1, s_read_address2 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+  signal s_output1, s_output2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal init_ok : bit := '0'; -- Check if RF was filled
 
-signal s_input1, s_input2, s_input3, s_input4, s_input5, s_input6, s_input7, s_input8, s_input9, s_input10,
-       s_input11, s_input12, s_input13, s_input14, s_input15, s_input16, s_input17, s_input18, s_input19, s_input20,
-       s_input21, s_input22, s_input23, s_input24, s_input25, s_input26, s_input27, s_input28, s_input29, s_input30,
-       s_input31, s_input32, s_input33, s_input34 : std_logic_vector(DATA_WIDTH-1 downto 0);
+-- Auxiliar signals for component inputs
+  signal inst1_aux_A, inst1_aux_B, inst2_aux_A, inst2_aux_B, inst3_aux_A, inst3_aux_B,
+         inst4_aux_A, inst4_aux_B, inst5_aux_A, inst5_aux_B, inst6_aux_A, inst6_aux_B,
+         inst7_aux_A, inst7_aux_B, inst8_aux_A, inst8_aux_B, inst9_aux_A, inst9_aux_B,
+         inst10_aux_A, inst10_aux_B, inst11_aux_A, inst11_aux_B, inst12_aux_A, inst12_aux_B,
+         inst13_aux_A, inst13_aux_B, inst14_aux_A, inst14_aux_B, inst15_aux_A, inst15_aux_B :
+         std_logic_vector(DATA_WIDTH-1 downto 0);
 
-signal s_read_address1, s_read_address2, s_read_address3, s_read_address4, s_read_address5,
-      s_read_address6, s_read_address7, s_read_address8, s_read_address9, s_read_address10,
-      s_read_address11, s_read_address12, s_read_address13, s_read_address14, s_read_address15,
-      s_read_address16, s_read_address17, s_read_address18, s_read_address19, s_read_address20,
-      s_read_address21, s_read_address22, s_read_address23, s_read_address24, s_read_address25,
-      s_read_address26, s_read_address27, s_read_address28, s_read_address29, s_read_address30,
-      s_read_address31, s_read_address32 : std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
+-- Input for components
+  signal inst1_A, inst1_B, inst2_A, inst2_B, inst3_A, inst3_B, inst4_A, inst4_B,
+         inst5_A, inst5_B, inst6_A, inst6_B, inst7_A, inst7_B, inst8_A, inst8_B,
+         inst9_A, inst9_B, inst10_A, inst10_B, inst11_A, inst11_B, inst12_A, inst12_B,
+         inst13_A, inst13_B, inst14_A, inst14_B, inst15_A, inst15_B, inst16_A, inst16_B :
+         std_logic_vector(DATA_WIDTH-1 downto 0);
 
-signal s_output1, s_output2, s_output3, s_output4, s_output5, s_output6, s_output7, s_output8, s_output9, s_output10,
-      s_output11, s_output12, s_output13, s_output14, s_output15, s_output16, s_output17, s_output18, s_output19, s_output20,
-      s_output21, s_output22, s_output23, s_output24, s_output25, s_output26, s_output27, s_output28, s_output29, s_output30,
-      s_output31, s_output32 : std_logic_vector(DATA_WIDTH-1 downto 0);
+-- Output from components
+  signal inst1_out, inst2_out, inst3_out, inst4_out_HI, inst4_out_LO, inst5_out,
+         inst6_out, inst7_out, inst8_out, inst9_out_HI, inst9_out_LO, inst10_out,
+         inst11_out, inst12_out, inst13_out, inst14_out_HI, inst14_out_LO, inst15_out :
+         std_logic_vector(DATA_WIDTH-1 downto 0);
+
+-- Zero output from ALUs
+  signal inst1_zero, inst2_zero, inst3_zero,
+         inst6_zero, inst7_zero, inst8_zero,
+         inst11_zero, inst12_zero, inst13_zero : std_logic;
 
 begin
 
-  rf : register_file port map(clk, enable_read, enable_write, s_write_address1, s_write_address2, s_write_address3,
-          s_write_address4, s_write_address5, s_write_address6, s_write_address7, s_write_address8, s_write_address9,
-          s_write_address10, s_write_address11, s_write_address12, s_write_address13, s_write_address14, s_write_address15,
-          s_write_address16, s_write_address17, s_write_address18, s_write_address19, s_write_address20, s_write_address21,
-          s_write_address22, s_write_address23, s_write_address24, s_write_address25, s_write_address26, s_write_address27,
-          s_write_address28, s_write_address29, s_write_address30, s_write_address31, s_write_address32, s_write_address33,
-          s_write_address34, s_input1, s_input2, s_input3, s_input4, s_input5, s_input6, s_input7, s_input8, s_input9,
-          s_input10, s_input11, s_input12, s_input13, s_input14, s_input15, s_input16, s_input17, s_input18, s_input19,
-          s_input20, s_input21, s_input22, s_input23, s_input24, s_input25, s_input26, s_input27, s_input28, s_input29,
-          s_input30, s_input31, s_input32, s_input33, s_input34, s_read_address1, s_read_address2, s_read_address3,
-          s_read_address4, s_read_address5, s_read_address6, s_read_address7, s_read_address8, s_read_address9,
-          s_read_address10, s_read_address11, s_read_address12, s_read_address13, s_read_address14, s_read_address15,
-          s_read_address16, s_read_address17, s_read_address18, s_read_address19, s_read_address20, s_read_address21,
-          s_read_address22, s_read_address23, s_read_address24, s_read_address25, s_read_address26, s_read_address27,
-          s_read_address28, s_read_address29, s_read_address30, s_read_address31, s_read_address32, s_output1,
-          s_output2, s_output3, s_output4, s_output5, s_output6, s_output7, s_output8, s_output9, s_output10,
-          s_output11, s_output12, s_output13, s_output14, s_output15, s_output16, s_output17, s_output18, s_output19,
-          s_output20, s_output21, s_output22, s_output23, s_output24, s_output25, s_output26, s_output27, s_output28,
-          s_output29, s_output30, s_output31, s_output32);
-          
+  rf : register_file port map(
+    clk, enable_read, enable_write,
+    s_write_address1, s_write_address2,
+    s_input1, s_input2,
+    s_read_address1, s_read_address2,
+    s_output1, s_output2
+  );
+
+  load_input_signals_0 : load_input_signals port map(reg_input1, reg_input2, reg_input3, reg_input4,
+    reg_input5, reg_input6, reg_input7, reg_input8, reg_input9, reg_input10, reg_input11, reg_input12,
+    reg_input13, reg_input14, reg_input15, reg_input16, reg_input17, reg_input18, reg_input19, reg_input20,
+    reg_input21, reg_input22, reg_input23, reg_input24, reg_input25, reg_input26, reg_input27, reg_input28,
+    reg_input29, reg_input30, reg_input31, reg_input32, reg_input33, reg_input34,
+    reg_addr1, reg_addr2, reg_addr3, reg_addr4, reg_addr5, reg_addr6, reg_addr7, reg_addr8, reg_addr9,
+    reg_addr10, reg_addr11, reg_addr12, reg_addr13, reg_addr14, reg_addr15, reg_addr16, reg_addr17,
+    reg_addr18, reg_addr19, reg_addr20, reg_addr21, reg_addr22, reg_addr23, reg_addr24, reg_addr25,
+    reg_addr26, reg_addr27, reg_addr28, reg_addr29, reg_addr30, reg_addr31, reg_addr32, reg_addr33,
+    reg_addr34, instruction1, instruction2, instruction3, instruction4, instruction5, instruction6,
+    instruction7, instruction8, instruction9, instruction10, instruction11, instruction12,
+    instruction13, instruction14, instruction15, inst1_aux_A, inst1_aux_B, inst2_aux_A, inst2_aux_B, inst3_aux_A,
+    inst3_aux_B, inst4_aux_A, inst4_aux_B, inst5_aux_A, inst5_aux_B, inst6_aux_A, inst6_aux_B, inst7_aux_A,
+    inst7_aux_B, inst8_aux_A, inst8_aux_B, inst9_aux_A, inst9_aux_B, inst10_aux_A, inst10_aux_B, inst11_aux_A,
+    inst11_aux_B, inst12_aux_A, inst12_aux_B, inst13_aux_A, inst13_aux_B, inst14_aux_A, inst14_aux_B,
+    inst15_aux_A, inst15_aux_B
+  );
+
+  inst1_A <= inst1_aux_A;
+  inst1_B <= inst1_aux_B;
+
+  inst2_A <= inst1_out when (instruction2(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_aux_A;
+
+  inst2_B <= inst1_out when (instruction2(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_aux_B;
+
+  inst3_A <= inst1_out when (instruction3(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_out when (instruction3(22 downto 17) = instruction2(28 downto 23)) else
+             inst3_aux_A;
+
+  inst3_B <= inst1_out when (instruction3(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_out when (instruction3(16 downto 11) = instruction2(28 downto 23)) else
+             inst3_aux_B;
+
+  inst4_A <= inst1_out when (instruction4(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_out when (instruction4(22 downto 17) = instruction2(28 downto 23)) else
+             inst3_out when (instruction4(22 downto 17) = instruction3(28 downto 23)) else
+             inst4_aux_A;
+
+  inst4_B <= inst1_out when (instruction4(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_out when (instruction4(16 downto 11) = instruction2(28 downto 23)) else
+             inst3_out when (instruction4(16 downto 11) = instruction3(28 downto 23)) else
+             inst4_aux_B;
+------
+  inst6_A <= inst1_out when (instruction6(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_out when (instruction6(22 downto 17) = instruction2(28 downto 23)) else
+             inst3_out when (instruction6(22 downto 17) = instruction3(28 downto 23)) else
+             inst4_out_HI when (instruction6(22 downto 17) = instruction4(28 downto 23)) else
+             inst4_out_LO when (instruction6(22 downto 17) = instruction4(10 downto 5)) else
+              --
+             inst6_aux_A;
+
+  inst6_B <= inst1_out when (instruction6(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_out when (instruction6(16 downto 11) = instruction2(28 downto 23)) else
+             inst3_out when (instruction6(16 downto 11) = instruction3(28 downto 23)) else
+             inst4_out_HI when (instruction6(16 downto 11) = instruction4(28 downto 23)) else
+             inst4_out_LO when (instruction6(16 downto 11) = instruction4(10 downto 5)) else
+               --
+             inst6_aux_B;
+
+  basic_unit_1 : basic_unit port map(clk, enable_read, enable_write, inst1_A, inst1_B, inst2_A, inst2_B, inst3_A, inst3_B,
+    instruction1(32 downto 29), instruction2(32 downto 29), instruction3(32 downto 29), inst1_out, inst2_out, inst3_out,
+    inst1_zero, inst2_zero, inst3_zero, inst4_A, inst4_B, instruction4(29), inst4_out_HI, inst4_out_LO
+  );
+
+  basic_unit_2 : basic_unit port map(clk, enable_read, enable_write, inst6_A, inst6_B, inst7_A, inst7_B, inst8_A, inst8_B,
+    instruction6(32 downto 29), instruction7(32 downto 29), instruction8(32 downto 29), inst6_out, inst7_out, inst8_out,
+    inst6_zero, inst7_zero, inst8_zero, inst9_A, inst9_B, instruction9(29), inst9_out_HI, inst9_out_LO
+  );
+
+  basic_unit_3 : basic_unit port map(clk, enable_read, enable_write, inst11_A, inst11_B, inst12_A, inst12_B, inst13_A,
+    inst13_B, instruction11(32 downto 29), instruction12(32 downto 29), instruction13(32 downto 29), inst11_out,
+    inst12_out, inst13_out, inst11_zero, inst12_zero, inst13_zero, inst14_A, inst14_B, instruction14(29), inst14_out_HI,
+    inst14_out_LO
+  );
+
+
+  init_rf : process
+  begin
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr1;
+     s_write_address2 <= reg_addr2;
+     s_input1 <= reg_input1;
+     s_input2 <= reg_input2;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr3;
+     s_write_address2 <= reg_addr4;
+     s_input1 <= reg_input3;
+     s_input2 <= reg_input4;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr5;
+     s_write_address2 <= reg_addr6;
+     s_input1 <= reg_input5;
+     s_input2 <= reg_input6;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr7;
+     s_write_address2 <= reg_addr8;
+     s_input1 <= reg_input7;
+     s_input2 <= reg_input8;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr9;
+     s_write_address2 <= reg_addr10;
+     s_input1 <= reg_input9;
+     s_input2 <= reg_input10;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr11;
+     s_write_address2 <= reg_addr12;
+     s_input1 <= reg_input11;
+     s_input2 <= reg_input12;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr13;
+     s_write_address2 <= reg_addr14;
+     s_input1 <= reg_input13;
+     s_input2 <= reg_input14;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr15;
+     s_write_address2 <= reg_addr16;
+     s_input1 <= reg_input15;
+     s_input2 <= reg_input16;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr17;
+     s_write_address2 <= reg_addr18;
+     s_input1 <= reg_input17;
+     s_input2 <= reg_input18;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr19;
+     s_write_address2 <= reg_addr20;
+     s_input1 <= reg_input19;
+     s_input2 <= reg_input20;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr21;
+     s_write_address2 <= reg_addr22;
+     s_input1 <= reg_input21;
+     s_input2 <= reg_input22;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr23;
+     s_write_address2 <= reg_addr24;
+     s_input1 <= reg_input23;
+     s_input2 <= reg_input24;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr25;
+     s_write_address2 <= reg_addr26;
+     s_input1 <= reg_input25;
+     s_input2 <= reg_input26;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr27;
+     s_write_address2 <= reg_addr28;
+     s_input1 <= reg_input27;
+     s_input2 <= reg_input28;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr29;
+     s_write_address2 <= reg_addr30;
+     s_input1 <= reg_input29;
+     s_input2 <= reg_input30;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr31;
+     s_write_address2 <= reg_addr32;
+     s_input1 <= reg_input31;
+     s_input2 <= reg_input32;
+     wait until clk'event and clk = '1' and enable_write = '1';
+     s_write_address1 <= reg_addr33;
+     s_write_address2 <= reg_addr34;
+     s_input1 <= reg_input33;
+     s_input2 <= reg_input34;
+
+     init_ok <= '1';
+     wait;
+  end process;
 
 
 end cluster;
