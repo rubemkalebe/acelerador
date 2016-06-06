@@ -1,6 +1,6 @@
--- Load auxiliar signals for component inputs.
+-- Load directly auxiliar signals for component inputs.
 -- Value from register_file or immediate.
--- Version: 04.23.2016.
+-- Version: 06.06.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -8,7 +8,7 @@ use ieee.std_logic_1164.all;
 entity load_input_signals is
   generic (
     DATA_WIDTH : natural := 32;
-    INST_WIDTH : natural := 34;
+    INST_WIDTH : natural := 36;
     ADDR_RF_WIDTH : natural := 6
   );
 
@@ -47,41 +47,6 @@ entity load_input_signals is
     reg_input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     reg_input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     reg_input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-
-    reg_addr1 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr2 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr3 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr4 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr5 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr6 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr7 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr8 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr9 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr10 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr11 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr12 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr13 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr14 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr15 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr16 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr17 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr18 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr19 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr20 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr21 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr22 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr23 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr24 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr25 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr26 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr27 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr28 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr29 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr30 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr31 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr32 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr33 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
-    reg_addr34 : in std_logic_vector(ADDR_RF_WIDTH-1 downto 0);
 
     instruction1 : in std_logic_vector(INST_WIDTH-1 downto 0);
     instruction2 : in std_logic_vector(INST_WIDTH-1 downto 0);
@@ -133,6 +98,41 @@ entity load_input_signals is
 end load_input_signals;
 
 architecture load_input_signals of load_input_signals is
+
+  constant reg_addr1 : std_logic_vector := "000000";
+  constant reg_addr2 : std_logic_vector := "000001";
+  constant reg_addr3 : std_logic_vector := "000010";
+  constant reg_addr4 : std_logic_vector := "000011";
+  constant reg_addr5 : std_logic_vector := "000100";
+  constant reg_addr6 : std_logic_vector := "000101";
+  constant reg_addr7 : std_logic_vector := "000110";
+  constant reg_addr8 : std_logic_vector := "000111";
+  constant reg_addr9 : std_logic_vector := "001000";
+  constant reg_addr10 : std_logic_vector := "001001";
+  constant reg_addr11 : std_logic_vector := "001010";
+  constant reg_addr12 : std_logic_vector := "001011";
+  constant reg_addr13 : std_logic_vector := "001100";
+  constant reg_addr14 : std_logic_vector := "001101";
+  constant reg_addr15 : std_logic_vector := "001110";
+  constant reg_addr16 : std_logic_vector := "001111";
+  constant reg_addr17 : std_logic_vector := "010000";
+  constant reg_addr18 : std_logic_vector := "010001";
+  constant reg_addr19 : std_logic_vector := "010010";
+  constant reg_addr20 : std_logic_vector := "010011";
+  constant reg_addr21 : std_logic_vector := "010100";
+  constant reg_addr22 : std_logic_vector := "010101";
+  constant reg_addr23 : std_logic_vector := "010110";
+  constant reg_addr24 : std_logic_vector := "010111";
+  constant reg_addr25 : std_logic_vector := "011000";
+  constant reg_addr26 : std_logic_vector := "011001";
+  constant reg_addr27 : std_logic_vector := "011010";
+  constant reg_addr28 : std_logic_vector := "011011";
+  constant reg_addr29 : std_logic_vector := "011100";
+  constant reg_addr30 : std_logic_vector := "011101";
+  constant reg_addr31 : std_logic_vector := "011110";
+  constant reg_addr32 : std_logic_vector := "011111";
+  constant reg_addr33 : std_logic_vector := "100000";
+  constant reg_addr34 : std_logic_vector := "100001";
 
 begin
 
