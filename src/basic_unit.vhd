@@ -11,10 +11,6 @@ entity basic_unit is
   );
 
   port (
-    clk : in std_logic;
-    enable_read  : in std_logic;
-    enable_write : in std_logic;
-
     input_ALU_1A : in std_logic_vector(n-1 downto 0);
     input_ALU_1B : in std_logic_vector(n-1 downto 0);
     input_ALU_2A : in std_logic_vector(n-1 downto 0);
