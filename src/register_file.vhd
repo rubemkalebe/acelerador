@@ -1,7 +1,7 @@
 -- Local register file with 34 x 32-bit general purpose registers (HIGH and LOW included).
--- The read operation is not clocked -- it is combinational.
--- It has 34 inputs and 30 outputs.
--- Version: 05.21.2016.
+-- It has 34 inputs and 34 outputs.
+-- Each reg has its data input, read and write signals, and data output.
+-- Version: 06.06.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -9,288 +9,304 @@ use ieee.numeric_std.all;
 
 entity register_file is
   generic (
-    DATA_WIDTH : natural := 32;
-    ADDR_WIDTH : natural := 6;
-    N : natural := 34
+    DATA_WIDTH : natural := 32
+  );
+
+  port (
+    clk : in std_logic;
+
+    input_reg1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg3 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg4 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg5 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg6 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg7 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg8 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg9 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg10 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg11 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg12 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg13 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg14 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg15 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg16 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg17 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg18 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg19 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg20 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg21 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg22 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg23 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg24 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg25 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg26 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg27 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg28 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg29 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg30 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg31 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    input_reg34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+
+    write_reg1 : in std_logic;
+    write_reg2 : in std_logic;
+    write_reg3 : in std_logic;
+    write_reg4 : in std_logic;
+    write_reg5 : in std_logic;
+    write_reg6 : in std_logic;
+    write_reg7 : in std_logic;
+    write_reg8 : in std_logic;
+    write_reg9 : in std_logic;
+    write_reg10 : in std_logic;
+    write_reg11 : in std_logic;
+    write_reg12 : in std_logic;
+    write_reg13 : in std_logic;
+    write_reg14 : in std_logic;
+    write_reg15 : in std_logic;
+    write_reg16 : in std_logic;
+    write_reg17 : in std_logic;
+    write_reg18 : in std_logic;
+    write_reg19 : in std_logic;
+    write_reg20 : in std_logic;
+    write_reg21 : in std_logic;
+    write_reg22 : in std_logic;
+    write_reg23 : in std_logic;
+    write_reg24 : in std_logic;
+    write_reg25 : in std_logic;
+    write_reg26 : in std_logic;
+    write_reg27 : in std_logic;
+    write_reg28 : in std_logic;
+    write_reg29 : in std_logic;
+    write_reg30 : in std_logic;
+    write_reg31 : in std_logic;
+    write_reg32 : in std_logic;
+    write_reg33 : in std_logic;
+    write_reg34 : in std_logic;
+
+    read_reg1 : in std_logic;
+    read_reg2 : in std_logic;
+    read_reg3 : in std_logic;
+    read_reg4 : in std_logic;
+    read_reg5 : in std_logic;
+    read_reg6 : in std_logic;
+    read_reg7 : in std_logic;
+    read_reg8 : in std_logic;
+    read_reg9 : in std_logic;
+    read_reg10 : in std_logic;
+    read_reg11 : in std_logic;
+    read_reg12 : in std_logic;
+    read_reg13 : in std_logic;
+    read_reg14 : in std_logic;
+    read_reg15 : in std_logic;
+    read_reg16 : in std_logic;
+    read_reg17 : in std_logic;
+    read_reg18 : in std_logic;
+    read_reg19 : in std_logic;
+    read_reg20 : in std_logic;
+    read_reg21 : in std_logic;
+    read_reg22 : in std_logic;
+    read_reg23 : in std_logic;
+    read_reg24 : in std_logic;
+    read_reg25 : in std_logic;
+    read_reg26 : in std_logic;
+    read_reg27 : in std_logic;
+    read_reg28 : in std_logic;
+    read_reg29 : in std_logic;
+    read_reg30 : in std_logic;
+    read_reg31 : in std_logic;
+    read_reg32 : in std_logic;
+    read_reg33 : in std_logic;
+    read_reg34 : in std_logic;
+
+    output_reg1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg2 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg3 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg4 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg5 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg6 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg7 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg8 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg9 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg10 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg11 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg12 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg13 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg14 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg15 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg16 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg17 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg18 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg19 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg20 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg21 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg22 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg23 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg24 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg25 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg26 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg27 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg28 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg29 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg30 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg31 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg32 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg33 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    output_reg34 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+
+  );
+end register_file;
+
+architecture register_file of register_file is
+
+  signal s_input_reg1, s_input_reg2, s_input_reg3, s_input_reg4, s_input_reg5, s_input_reg6,
+    s_input_reg7, s_input_reg8, s_input_reg9, s_input_reg10, s_input_reg11, s_input_reg12,
+    s_input_reg13, s_input_reg14, s_input_reg15, s_input_reg16, s_input_reg17, s_input_reg18,
+    s_input_reg19, s_input_reg20, s_input_reg21, s_input_reg22, s_input_reg23, s_input_reg24,
+    s_input_reg25, s_input_reg26, s_input_reg27, s_input_reg28, s_input_reg29, s_input_reg30,
+    s_input_reg31, s_input_reg32, s_input_reg33, s_input_reg34 : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+  signal s_write_reg1, s_write_reg2, s_write_reg3, s_write_reg4, s_write_reg5, s_write_reg6,
+    s_write_reg7, s_write_reg8, s_write_reg9, s_write_reg10, s_write_reg11, s_write_reg12,
+    s_write_reg13, s_write_reg14, s_write_reg15, s_write_reg16, s_write_reg17, s_write_reg18,
+    s_write_reg19, s_write_reg20, s_write_reg21, s_write_reg22, s_write_reg23, s_write_reg24,
+    s_write_reg25, s_write_reg26, s_write_reg27, s_write_reg28, s_write_reg29, s_write_reg30,
+    s_write_reg31, s_write_reg32, s_write_reg33, s_write_reg34 : std_logic;
+
+  signal s_read_reg1, s_read_reg2, s_read_reg3, s_read_reg4, s_read_reg5, s_read_reg6,
+    s_read_reg7, s_read_reg8, s_read_reg9, s_read_reg10, s_read_reg11, s_read_reg12,
+    s_read_reg13, s_read_reg14, s_read_reg15, s_read_reg16, s_read_reg17, s_read_reg18,
+    s_read_reg19, s_read_reg20, s_read_reg21, s_read_reg22, s_read_reg23, s_read_reg24,
+    s_read_reg25, s_read_reg26, s_read_reg27, s_read_reg28, s_read_reg29, s_read_reg30,
+    s_read_reg31, s_read_reg32, s_read_reg33, s_read_reg34 : std_logic;
+
+  signal s_output_reg1, s_output_reg2, s_output_reg3, s_output_reg4, s_output_reg5, s_output_reg6,
+    s_output_reg7, s_output_reg8, s_output_reg9, s_output_reg10, s_output_reg11, s_output_reg12,
+    s_output_reg13, s_output_reg14, s_output_reg15, s_output_reg16, s_output_reg17, s_output_reg18,
+    s_output_reg19, s_output_reg20, s_output_reg21, s_output_reg22, s_output_reg23, s_output_reg24,
+    s_output_reg25, s_output_reg26, s_output_reg27, s_output_reg28, s_output_reg29, s_output_reg30,
+    s_output_reg31, s_output_reg32, s_output_reg33, s_output_reg34 : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+component reg is
+  generic (
+    n : natural := 32
   );
 
   port (
     clk : in std_logic;
     enable_read : in std_logic;
     enable_write : in std_logic;
-
-    write_address1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address3 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address4 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address5 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address6 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address7 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address8 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address9 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address10 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address11 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address12 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address13 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address14 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address15 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address16 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address17 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address18 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address19 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address20 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address21 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address22 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address23 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address24 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address25 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address26 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address27 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address28 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address29 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address31 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address32 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address33 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    write_address34 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-
-    input1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input3 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input4 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input5 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input6 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input7 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input8 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input9 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input10 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input11 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input12 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input13 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input14 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input15 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input16 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input17 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input18 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input19 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input20 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input21 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input22 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input23 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input24 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input25 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input26 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input27 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input28 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input29 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input30 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input31 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input32 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input33 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    input34 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-
-    read_address1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address3 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address4 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address5 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address6 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address7 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address8 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address9 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address10 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address11 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address12 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address13 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address14 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address15 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address16 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address17 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address18 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address19 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address20 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address21 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address22 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address23 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address24 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address25 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address26 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address27 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address28 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address29 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-    read_address30 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-
-    output1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output2 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output3 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output4 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output5 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output6 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output7 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output8 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output9 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output10 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output11 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output12 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output13 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output14 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output15 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output16 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output17 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output18 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output19 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output20 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output21 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output22 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output23 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output24 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output25 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output26 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output27 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output28 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output29 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    output30 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+    reg_input : in std_logic_vector(n-1 downto 0);
+    reg_output : out std_logic_vector(n-1 downto 0)
   );
-end register_file;
-
-architecture register_file of register_file is
-
-  type reg_array is array (0 to N-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-  signal reg_file : reg_array;
+end component;
 
 begin
 
-  -- Reading
-  output1 <= reg_file(to_integer(unsigned(read_address1))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
+  s_input_reg1 <= input_reg1;
+  s_input_reg2 <= input_reg2;
+  s_input_reg3 <= input_reg3;
+  s_input_reg4 <= input_reg4;
+  s_input_reg5 <= input_reg5;
+  s_input_reg6 <= input_reg6;
+  s_input_reg7 <= input_reg7;
+  s_input_reg8 <= input_reg8;
+  s_input_reg9 <= input_reg9;
+  s_input_reg10 <= input_reg10;
+  s_input_reg11 <= input_reg11;
+  s_input_reg12 <= input_reg12;
+  s_input_reg13 <= input_reg13;
+  s_input_reg14 <= input_reg14;
+  s_input_reg15 <= input_reg15;
+  s_input_reg16 <= input_reg16;
+  s_input_reg17 <= input_reg17;
+  s_input_reg18 <= input_reg18;
+  s_input_reg19 <= input_reg19;
+  s_input_reg20 <= input_reg20;
+  s_input_reg21 <= input_reg21;
+  s_input_reg22 <= input_reg22;
+  s_input_reg23 <= input_reg23;
+  s_input_reg24 <= input_reg24;
+  s_input_reg25 <= input_reg25;
+  s_input_reg26 <= input_reg26;
+  s_input_reg27 <= input_reg27;
+  s_input_reg28 <= input_reg28;
+  s_input_reg29 <= input_reg29;
+  s_input_reg30 <= input_reg30;
+  s_input_reg31 <= input_reg31;
+  s_input_reg32 <= input_reg32;
+  s_input_reg33 <= input_reg33;
+  s_input_reg34 <= input_reg34;
 
-  output2 <= reg_file(to_integer(unsigned(read_address2))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
+  reg1 : reg port map(clk, read_reg1, write_reg1, s_input_reg1, s_output_reg1);
+  reg2 : reg port map(clk, read_reg2, write_reg2, s_input_reg2, s_output_reg2);
+  reg3 : reg port map(clk, read_reg3, write_reg3, s_input_reg3, s_output_reg3);
+  reg4 : reg port map(clk, read_reg4, write_reg4, s_input_reg4, s_output_reg4);
+  reg5 : reg port map(clk, read_reg5, write_reg5, s_input_reg5, s_output_reg5);
+  reg6 : reg port map(clk, read_reg6, write_reg6, s_input_reg6, s_output_reg6);
+  reg7 : reg port map(clk, read_reg7, write_reg7, s_input_reg7, s_output_reg7);
+  reg8 : reg port map(clk, read_reg8, write_reg8, s_input_reg8, s_output_reg8);
+  reg9 : reg port map(clk, read_reg9, write_reg9, s_input_reg9, s_output_reg9);
+  reg10 : reg port map(clk, read_reg10, write_reg10, s_input_reg10, s_output_reg10);
+  reg11 : reg port map(clk, read_reg11, write_reg11, s_input_reg11, s_output_reg11);
+  reg12 : reg port map(clk, read_reg12, write_reg12, s_input_reg12, s_output_reg12);
+  reg13 : reg port map(clk, read_reg13, write_reg13, s_input_reg13, s_output_reg13);
+  reg14 : reg port map(clk, read_reg14, write_reg14, s_input_reg14, s_output_reg14);
+  reg15 : reg port map(clk, read_reg15, write_reg15, s_input_reg15, s_output_reg15);
+  reg16 : reg port map(clk, read_reg16, write_reg16, s_input_reg16, s_output_reg16);
+  reg17 : reg port map(clk, read_reg17, write_reg17, s_input_reg17, s_output_reg17);
+  reg18 : reg port map(clk, read_reg18, write_reg18, s_input_reg18, s_output_reg18);
+  reg19 : reg port map(clk, read_reg19, write_reg19, s_input_reg19, s_output_reg19);
+  reg20 : reg port map(clk, read_reg20, write_reg20, s_input_reg20, s_output_reg20);
+  reg21 : reg port map(clk, read_reg21, write_reg21, s_input_reg21, s_output_reg21);
+  reg22 : reg port map(clk, read_reg22, write_reg22, s_input_reg22, s_output_reg22);
+  reg23 : reg port map(clk, read_reg23, write_reg23, s_input_reg23, s_output_reg23);
+  reg24 : reg port map(clk, read_reg24, write_reg24, s_input_reg24, s_output_reg24);
+  reg25 : reg port map(clk, read_reg25, write_reg25, s_input_reg25, s_output_reg25);
+  reg26 : reg port map(clk, read_reg26, write_reg26, s_input_reg26, s_output_reg26);
+  reg27 : reg port map(clk, read_reg27, write_reg27, s_input_reg27, s_output_reg27);
+  reg28 : reg port map(clk, read_reg28, write_reg28, s_input_reg28, s_output_reg28);
+  reg29 : reg port map(clk, read_reg29, write_reg29, s_input_reg29, s_output_reg29);
+  reg30 : reg port map(clk, read_reg30, write_reg30, s_input_reg30, s_output_reg30);
+  reg31 : reg port map(clk, read_reg31, write_reg31, s_input_reg31, s_output_reg31);
+  reg32 : reg port map(clk, read_reg32, write_reg32, s_input_reg32, s_output_reg32);
+  reg33 : reg port map(clk, read_reg33, write_reg33, s_input_reg33, s_output_reg33);
+  reg34 : reg port map(clk, read_reg34, write_reg34, s_input_reg34, s_output_reg34);
 
-  output3 <= reg_file(to_integer(unsigned(read_address3))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output4 <= reg_file(to_integer(unsigned(read_address4))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output5 <= reg_file(to_integer(unsigned(read_address5))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output6 <= reg_file(to_integer(unsigned(read_address6))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output7 <= reg_file(to_integer(unsigned(read_address7))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output8 <= reg_file(to_integer(unsigned(read_address8))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output9 <= reg_file(to_integer(unsigned(read_address9))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output10 <= reg_file(to_integer(unsigned(read_address10))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output11 <= reg_file(to_integer(unsigned(read_address11))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output12 <= reg_file(to_integer(unsigned(read_address12))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output13 <= reg_file(to_integer(unsigned(read_address13))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output14 <= reg_file(to_integer(unsigned(read_address14))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output15 <= reg_file(to_integer(unsigned(read_address15))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output16 <= reg_file(to_integer(unsigned(read_address16))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output17 <= reg_file(to_integer(unsigned(read_address17))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output18 <= reg_file(to_integer(unsigned(read_address18))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output19 <= reg_file(to_integer(unsigned(read_address19))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output20 <= reg_file(to_integer(unsigned(read_address20))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output21 <= reg_file(to_integer(unsigned(read_address21))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output22 <= reg_file(to_integer(unsigned(read_address22))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output23 <= reg_file(to_integer(unsigned(read_address23))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output24 <= reg_file(to_integer(unsigned(read_address24))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output25 <= reg_file(to_integer(unsigned(read_address25))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output26 <= reg_file(to_integer(unsigned(read_address26))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output27 <= reg_file(to_integer(unsigned(read_address27))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output28 <= reg_file(to_integer(unsigned(read_address28))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output29 <= reg_file(to_integer(unsigned(read_address29))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  output30 <= reg_file(to_integer(unsigned(read_address30))) when (enable_read = '1' and enable_write = '0') else
-              "00000000000000000000000000000000";
-
-  writing : process(clk) is
-  begin
-    if(rising_edge(clk)) then
-      if(enable_write = '1' and enable_read = '0') then
-          reg_file(to_integer(unsigned(write_address1))) <= input1;
-          reg_file(to_integer(unsigned(write_address2))) <= input2;
-          reg_file(to_integer(unsigned(write_address3))) <= input3;
-          reg_file(to_integer(unsigned(write_address4))) <= input4;
-          reg_file(to_integer(unsigned(write_address5))) <= input5;
-          reg_file(to_integer(unsigned(write_address6))) <= input6;
-          reg_file(to_integer(unsigned(write_address7))) <= input7;
-          reg_file(to_integer(unsigned(write_address8))) <= input8;
-          reg_file(to_integer(unsigned(write_address9))) <= input9;
-          reg_file(to_integer(unsigned(write_address10))) <= input10;
-          reg_file(to_integer(unsigned(write_address11))) <= input11;
-          reg_file(to_integer(unsigned(write_address12))) <= input12;
-          reg_file(to_integer(unsigned(write_address13))) <= input13;
-          reg_file(to_integer(unsigned(write_address14))) <= input14;
-          reg_file(to_integer(unsigned(write_address15))) <= input15;
-          reg_file(to_integer(unsigned(write_address16))) <= input16;
-          reg_file(to_integer(unsigned(write_address17))) <= input17;
-          reg_file(to_integer(unsigned(write_address18))) <= input18;
-          reg_file(to_integer(unsigned(write_address19))) <= input19;
-          reg_file(to_integer(unsigned(write_address20))) <= input20;
-          reg_file(to_integer(unsigned(write_address21))) <= input21;
-          reg_file(to_integer(unsigned(write_address22))) <= input22;
-          reg_file(to_integer(unsigned(write_address23))) <= input23;
-          reg_file(to_integer(unsigned(write_address24))) <= input24;
-          reg_file(to_integer(unsigned(write_address25))) <= input25;
-          reg_file(to_integer(unsigned(write_address26))) <= input26;
-          reg_file(to_integer(unsigned(write_address27))) <= input27;
-          reg_file(to_integer(unsigned(write_address28))) <= input28;
-          reg_file(to_integer(unsigned(write_address29))) <= input29;
-          reg_file(to_integer(unsigned(write_address30))) <= input30;
-          reg_file(to_integer(unsigned(write_address31))) <= input31;
-          reg_file(to_integer(unsigned(write_address32))) <= input32;
-          reg_file(to_integer(unsigned(write_address33))) <= input33;
-          reg_file(to_integer(unsigned(write_address34))) <= input34;
-      end if;
-    end if;
-  end process;
+  output_reg1 <= s_output_reg1;
+  output_reg2 <= s_output_reg2;
+  output_reg3 <= s_output_reg3;
+  output_reg4 <= s_output_reg4;
+  output_reg5 <= s_output_reg5;
+  output_reg6 <= s_output_reg6;
+  output_reg7 <= s_output_reg7;
+  output_reg8 <= s_output_reg8;
+  output_reg9 <= s_output_reg9;
+  output_reg10 <= s_output_reg10;
+  output_reg11 <= s_output_reg11;
+  output_reg12 <= s_output_reg12;
+  output_reg13 <= s_output_reg13;
+  output_reg14 <= s_output_reg14;
+  output_reg15 <= s_output_reg15;
+  output_reg16 <= s_output_reg16;
+  output_reg17 <= s_output_reg17;
+  output_reg18 <= s_output_reg18;
+  output_reg19 <= s_output_reg19;
+  output_reg20 <= s_output_reg20;
+  output_reg21 <= s_output_reg21;
+  output_reg22 <= s_output_reg22;
+  output_reg23 <= s_output_reg23;
+  output_reg24 <= s_output_reg24;
+  output_reg25 <= s_output_reg25;
+  output_reg26 <= s_output_reg26;
+  output_reg27 <= s_output_reg27;
+  output_reg28 <= s_output_reg28;
+  output_reg29 <= s_output_reg29;
+  output_reg30 <= s_output_reg30;
+  output_reg31 <= s_output_reg31;
+  output_reg32 <= s_output_reg32;
+  output_reg33 <= s_output_reg33;
+  output_reg34 <= s_output_reg34;
 
 end register_file;
