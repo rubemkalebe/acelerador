@@ -33,23 +33,31 @@ begin
   clock : process
 	begin
     for i in 1 to num_cycles loop
-        s_clk <= not s_clk;
-        wait for 5 ns;
-        s_clk <= not s_clk;
-        wait for 5 ns;
-        -- clock period = 10 ns
-      end loop;
-      wait;
+      s_clk <= not s_clk;
+      wait for 5 ns;
+      s_clk <= not s_clk;
+      wait for 5 ns;
+      -- clock period = 10 ns
+    end loop;
+    wait;
 	end process;
 
   write : process
   begin
     s_enable_write <= '1';
-    wait for 80 ns;
+    wait for 40 ns;
     s_enable_write <= '0';
-    wait for 80 ns;
+    wait for 40 ns;
     s_enable_write <= '1';
-    wait for 80 ns;
+    wait for 40 ns;
+    s_enable_write <= '0';
+    wait for 40 ns;
+    s_enable_write <= '1';
+    wait for 40 ns;
+    s_enable_write <= '0';
+    wait for 40 ns;
+    s_enable_write <= '1';
+    wait for 40 ns;
     s_enable_write <= '0';
     wait;
   end process;
@@ -57,20 +65,39 @@ begin
   read : process
   begin
     s_enable_read <= '0';
-    wait for 80 ns;
+    wait for 40 ns;
     s_enable_read <= '1';
-    wait for 160 ns;
+    wait for 40 ns;
     s_enable_read <= '0';
+    wait for 40 ns;
+    s_enable_read <= '1';
+    wait for 40 ns;
+    s_enable_read <= '0';
+    wait for 40 ns;
+    s_enable_read <= '1';
+    wait for 80 ns;
+    s_enable_read <= '0';
+    --wait for 40 ns;
+    --s_enable_read <= '1';
     wait;
   end process;
 
   test : process
   begin
     s_reg_input <= "00100000000000000000000000000000";
-		wait for 100 ns;
+		wait for 50 ns;
 
     s_reg_input <= "00000000000000000000000000000010";
-		wait for 100 ns;
+		wait for 50 ns;
+
+    s_reg_input <= "00010000000000000000000000000000";
+		wait for 50 ns;
+
+    s_reg_input <= "00000000000000000000000000000100";
+		wait for 90 ns;
+
+    s_reg_input <= "00000000000000000100000000000000";
+		wait for 50 ns;
 		wait;
   end process;
 
