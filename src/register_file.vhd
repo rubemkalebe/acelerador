@@ -1,7 +1,7 @@
 -- Local register file with 34 x 32-bit general purpose registers (HIGH and LOW included).
 -- It has 34 inputs and 34 outputs.
 -- Each reg has its data input, read and write signals, and data output.
--- Version: 06.06.2016.
+-- Version: 06.16.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -166,20 +166,6 @@ architecture register_file of register_file is
     s_input_reg19, s_input_reg20, s_input_reg21, s_input_reg22, s_input_reg23, s_input_reg24,
     s_input_reg25, s_input_reg26, s_input_reg27, s_input_reg28, s_input_reg29, s_input_reg30,
     s_input_reg31, s_input_reg32, s_input_reg33, s_input_reg34 : std_logic_vector(DATA_WIDTH-1 downto 0);
-
-  signal s_write_reg1, s_write_reg2, s_write_reg3, s_write_reg4, s_write_reg5, s_write_reg6,
-    s_write_reg7, s_write_reg8, s_write_reg9, s_write_reg10, s_write_reg11, s_write_reg12,
-    s_write_reg13, s_write_reg14, s_write_reg15, s_write_reg16, s_write_reg17, s_write_reg18,
-    s_write_reg19, s_write_reg20, s_write_reg21, s_write_reg22, s_write_reg23, s_write_reg24,
-    s_write_reg25, s_write_reg26, s_write_reg27, s_write_reg28, s_write_reg29, s_write_reg30,
-    s_write_reg31, s_write_reg32, s_write_reg33, s_write_reg34 : std_logic;
-
-  signal s_read_reg1, s_read_reg2, s_read_reg3, s_read_reg4, s_read_reg5, s_read_reg6,
-    s_read_reg7, s_read_reg8, s_read_reg9, s_read_reg10, s_read_reg11, s_read_reg12,
-    s_read_reg13, s_read_reg14, s_read_reg15, s_read_reg16, s_read_reg17, s_read_reg18,
-    s_read_reg19, s_read_reg20, s_read_reg21, s_read_reg22, s_read_reg23, s_read_reg24,
-    s_read_reg25, s_read_reg26, s_read_reg27, s_read_reg28, s_read_reg29, s_read_reg30,
-    s_read_reg31, s_read_reg32, s_read_reg33, s_read_reg34 : std_logic;
 
   signal s_output_reg1, s_output_reg2, s_output_reg3, s_output_reg4, s_output_reg5, s_output_reg6,
     s_output_reg7, s_output_reg8, s_output_reg9, s_output_reg10, s_output_reg11, s_output_reg12,
