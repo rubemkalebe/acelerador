@@ -1,6 +1,6 @@
 -- A cluster with 3 basic units and a local register file.
 -- It can run 15 instructions.
--- Version: 06.16.2016.
+-- Version: 06.27.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -510,6 +510,62 @@ component load_from_rf is
   );
 end component;
 
+component signals_for_writing is
+  generic (
+    DATA_WIDTH : natural := 32;
+    ADDR_WIDTH : natural := 6
+  );
+
+  port (
+    inst1_out : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst2_out : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst3_out : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst4_out_HI : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    inst4_out_LO : in std_logic_vector(DATA_WIDTH-1 downto 0);
+
+    dest_addr1 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    dest_addr2 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    dest_addr3 : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    dest_addr4_HI : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+    dest_addr4_LO : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+
+    signal_reg1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg2 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg3 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg4 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg5 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg6 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg7 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg8 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg9 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg10 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg11 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg12 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg13 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg14 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg15 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg16 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg17 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg18 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg19 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg20 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg21 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg22 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg23 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg24 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg25 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg26 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg27 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg28 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg29 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg30 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg31 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg32 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg33 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal_reg34 : out std_logic_vector(DATA_WIDTH-1 downto 0)
+  );
+end component;
+
 -- Signals for RF
   signal s_input_reg1, s_input_reg2, s_input_reg3, s_input_reg4, s_input_reg5, s_input_reg6,
     s_input_reg7, s_input_reg8, s_input_reg9, s_input_reg10, s_input_reg11, s_input_reg12,
@@ -526,6 +582,13 @@ end component;
     s_output_reg31, s_output_reg32, s_output_reg33, s_output_reg34 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
   signal rf_filled : bit := '0'; -- Check if RF was filled
+
+  signal ss_input_reg1, ss_input_reg2, ss_input_reg3, ss_input_reg4, ss_input_reg5, ss_input_reg6,
+    ss_input_reg7, ss_input_reg8, ss_input_reg9, ss_input_reg10, ss_input_reg11, ss_input_reg12,
+    ss_input_reg13, ss_input_reg14, ss_input_reg15, ss_input_reg16, ss_input_reg17, ss_input_reg18,
+    ss_input_reg19, ss_input_reg20, ss_input_reg21, ss_input_reg22, ss_input_reg23, ss_input_reg24,
+    ss_input_reg25, ss_input_reg26, ss_input_reg27, ss_input_reg28, ss_input_reg29, ss_input_reg30,
+    ss_input_reg31, ss_input_reg32, ss_input_reg33, ss_input_reg34 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
 -- Auxiliar signals for component inputs
   signal inst1_aux_A, inst1_aux_B, inst2_aux_A, inst2_aux_B, inst3_aux_A, inst3_aux_B,
@@ -634,41 +697,51 @@ begin
     inst14_out_HI, inst14_out_LO
   );
 
---   inst1_A <= s_output1 when (instruction1(35) = '1') else
---              inst1_aux_A;
---
---   inst1_B <= s_output2 when (instruction1(34) = '1') else
---              inst1_aux_B;
---
---   inst2_A <= s_output3 when (instruction2(35) = '1') else
---              inst1_out when (instruction2(22 downto 17) = instruction1(28 downto 23)) else
---              inst2_aux_A;
---
---   inst2_B <= s_output4 when (instruction2(34) = '1') else
---              inst1_out when (instruction2(16 downto 11) = instruction1(28 downto 23)) else
---              inst2_aux_B;
---
---   inst3_A <= s_output5 when (instruction3(35) = '1') else
---              inst1_out when (instruction3(22 downto 17) = instruction1(28 downto 23)) else
---              inst2_out when (instruction3(22 downto 17) = instruction2(28 downto 23)) else
---              inst3_aux_A;
---
---   inst3_B <= s_output6 when (instruction3(34) = '1') else
---              inst1_out when (instruction3(16 downto 11) = instruction1(28 downto 23)) else
---              inst2_out when (instruction3(16 downto 11) = instruction2(28 downto 23)) else
---              inst3_aux_B;
---
---   inst4_A <= s_output7 when (instruction4(35) = '1') else
---              inst1_out when (instruction4(22 downto 17) = instruction1(28 downto 23)) else
---              inst2_out when (instruction4(22 downto 17) = instruction2(28 downto 23)) else
---              inst3_out when (instruction4(22 downto 17) = instruction3(28 downto 23)) else
---              inst4_aux_A;
---
---   inst4_B <= s_output8 when (instruction4(34) = '1') else
---              inst1_out when (instruction4(16 downto 11) = instruction1(28 downto 23)) else
---              inst2_out when (instruction4(16 downto 11) = instruction2(28 downto 23)) else
---              inst3_out when (instruction4(16 downto 11) = instruction3(28 downto 23)) else
---              inst4_aux_B;
+  signals_for_writing0 : signals_for_writing port map(inst1_out, inst2_out, inst3_out, inst4_out_HI, inst4_out_LO,
+    instruction1(28 downto 23), instruction2(28 downto 23), instruction3(28 downto 23), instruction4(28 downto 23),
+    instruction4(10 downto 5), ss_input_reg1, ss_input_reg2, ss_input_reg3, ss_input_reg4, ss_input_reg5, ss_input_reg6,
+    ss_input_reg7, ss_input_reg8, ss_input_reg9, ss_input_reg10, ss_input_reg11, ss_input_reg12,
+    ss_input_reg13, ss_input_reg14, ss_input_reg15, ss_input_reg16, ss_input_reg17, ss_input_reg18,
+    ss_input_reg19, ss_input_reg20, ss_input_reg21, ss_input_reg22, ss_input_reg23, ss_input_reg24,
+    ss_input_reg25, ss_input_reg26, ss_input_reg27, ss_input_reg28, ss_input_reg29, ss_input_reg30,
+    ss_input_reg31, ss_input_reg32, ss_input_reg33, ss_input_reg34
+  );
+
+  inst1_A <= inst1_aux_rf_A when (instruction1(35) = '1') else
+             inst1_aux_A;
+
+  inst1_B <= inst1_aux_rf_B when (instruction1(34) = '1') else
+             inst1_aux_B;
+
+  inst2_A <= inst2_aux_rf_A when (instruction2(35) = '1') else
+             inst1_out when (instruction2(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_aux_A;
+
+  inst2_B <= inst2_aux_rf_B when (instruction2(34) = '1') else
+             inst1_out when (instruction2(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_aux_B;
+
+  inst3_A <= inst3_aux_rf_A when (instruction3(35) = '1') else
+             inst1_out when (instruction3(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_out when (instruction3(22 downto 17) = instruction2(28 downto 23)) else
+             inst3_aux_A;
+
+  inst3_B <= inst3_aux_rf_B when (instruction3(34) = '1') else
+             inst1_out when (instruction3(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_out when (instruction3(16 downto 11) = instruction2(28 downto 23)) else
+             inst3_aux_B;
+
+  inst4_A <= inst4_aux_rf_A when (instruction4(35) = '1') else
+             inst1_out when (instruction4(22 downto 17) = instruction1(28 downto 23)) else
+             inst2_out when (instruction4(22 downto 17) = instruction2(28 downto 23)) else
+             inst3_out when (instruction4(22 downto 17) = instruction3(28 downto 23)) else
+             inst4_aux_A;
+
+  inst4_B <= inst4_aux_rf_B when (instruction4(34) = '1') else
+             inst1_out when (instruction4(16 downto 11) = instruction1(28 downto 23)) else
+             inst2_out when (instruction4(16 downto 11) = instruction2(28 downto 23)) else
+             inst3_out when (instruction4(16 downto 11) = instruction3(28 downto 23)) else
+             inst4_aux_B;
 -- ------
 --   inst6_A <= s_output11 when (instruction6(35) = '1') else
 --              inst1_out when (instruction6(22 downto 17) = instruction1(28 downto 23)) else
@@ -730,7 +803,43 @@ begin
     --  wait until clk'event and clk = '1';
     --  s_write_address1 <= instruction1(28 downto 23);
     --  s_input1 <= inst1_out;
-     wait;
+
+    wait until (clk'event and clk = '1') and (enable_write'event and enable_write = '1');
+    s_input_reg1 <= ss_input_reg1;
+    s_input_reg2 <= ss_input_reg2;
+    s_input_reg3 <= ss_input_reg3;
+    s_input_reg4 <= ss_input_reg4;
+    s_input_reg5 <= ss_input_reg5;
+    s_input_reg6 <= ss_input_reg6;
+    s_input_reg7 <= ss_input_reg7;
+    s_input_reg8 <= ss_input_reg8;
+    s_input_reg9 <= ss_input_reg9;
+    s_input_reg10 <= ss_input_reg10;
+    s_input_reg11 <= ss_input_reg11;
+    s_input_reg12 <= ss_input_reg12;
+    s_input_reg13 <= ss_input_reg13;
+    s_input_reg14 <= ss_input_reg14;
+    s_input_reg15 <= ss_input_reg15;
+    s_input_reg16 <= ss_input_reg16;
+    s_input_reg17 <= ss_input_reg17;
+    s_input_reg18 <= ss_input_reg18;
+    s_input_reg19 <= ss_input_reg19;
+    s_input_reg20 <= ss_input_reg20;
+    s_input_reg21 <= ss_input_reg21;
+    s_input_reg22 <= ss_input_reg22;
+    s_input_reg23 <= ss_input_reg23;
+    s_input_reg24 <= ss_input_reg24;
+    s_input_reg25 <= ss_input_reg25;
+    s_input_reg26 <= ss_input_reg26;
+    s_input_reg27 <= ss_input_reg27;
+    s_input_reg28 <= ss_input_reg28;
+    s_input_reg29 <= ss_input_reg29;
+    s_input_reg30 <= ss_input_reg30;
+    s_input_reg31 <= ss_input_reg31;
+    s_input_reg32 <= ss_input_reg32;
+    s_input_reg33 <= ss_input_reg33;
+    s_input_reg34 <= ss_input_reg34;
+    wait;
   end process;
 
   -- load_input_from_rf : process
@@ -767,22 +876,6 @@ begin
   --   s_read_address29 <= instruction15(22 downto 17);
   --   s_read_address30 <= instruction15(16 downto 11);
   --   wait;
-  -- end process;
-
-  -- writing_on_rf : process
-  -- begin
-  --   wait for inst1_out;
-  --   s_write_address1 <= instruction1(28 downto 23);
-  --   s_input1 <= inst1_out;
-  --   -- s_write_address2 <= instruction2(28 downto 23);
-  --   -- s_input2 <= inst2_out;
-  --   -- s_write_address3 <= instruction3(28 downto 23);
-  --   -- s_input3 <= inst3_out;
-  --   -- s_write_address4 <= instruction4(28 downto 23);
-  --   -- s_input4 <= inst4_out_HI;
-  --   -- s_write_address5 <= instruction4(16 downto 11);
-  --   -- s_input5 <= inst4_out_LO;
-  -- wait;
   -- end process;
 
 end cluster;
