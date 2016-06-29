@@ -6,33 +6,43 @@ use ieee.std_logic_1164.all;
 
 entity basic_unit_tb is
   generic (
-    n         : natural := 32;
-    opc_bits  : natural := 4
+    DATA_WIDTH : natural := 32;
+    ADDR_WIDTH : natural := 32;
+    OPCD_WIDTH : natural := 4
   );
 end basic_unit_tb;
 
 architecture basic_unit_tb of basic_unit_tb is
 
-  signal s_input_ALU_1A : std_logic_vector(n-1 downto 0);
-  signal s_input_ALU_1B : std_logic_vector(n-1 downto 0);
-  signal s_input_ALU_2A : std_logic_vector(n-1 downto 0);
-  signal s_input_ALU_2B : std_logic_vector(n-1 downto 0);
-  signal s_input_ALU_3A : std_logic_vector(n-1 downto 0);
-  signal s_input_ALU_3B : std_logic_vector(n-1 downto 0);
-  signal s_opcode_ALU_1 : std_logic_vector(opc_bits-1 downto 0);
-  signal s_opcode_ALU_2 : std_logic_vector(opc_bits-1 downto 0);
-  signal s_opcode_ALU_3 : std_logic_vector(opc_bits-1 downto 0);
-  signal s_output_ALU_1 : std_logic_vector(n-1 downto 0);
-  signal s_output_ALU_2 : std_logic_vector(n-1 downto 0);
-  signal s_output_ALU_3 : std_logic_vector(n-1 downto 0);
+  signal s_input_ALU_1A : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_ALU_1B : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_ALU_2A : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_ALU_2B : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_ALU_3A : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_ALU_3B : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_opcode_ALU_1 : std_logic_vector(OPCD_WIDTH-1 downto 0);
+  signal s_opcode_ALU_2 : std_logic_vector(OPCD_WIDTH-1 downto 0);
+  signal s_opcode_ALU_3 : std_logic_vector(OPCD_WIDTH-1 downto 0);
+  signal s_output_ALU_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_output_ALU_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_output_ALU_3 : std_logic_vector(DATA_WIDTH-1 downto 0);
   signal s_zero_ALU_1 : std_logic;
   signal s_zero_ALU_2 : std_logic;
   signal s_zero_ALU_3 : std_logic;
-  signal s_input_MUL_1A : std_logic_vector(n-1 downto 0);
-  signal s_input_MUL_1B : std_logic_vector(n-1 downto 0);
+  signal s_input_MUL_1A : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_input_MUL_1B : std_logic_vector(DATA_WIDTH-1 downto 0);
   signal s_op_MUL_1 : std_logic;
-  signal s_output_MUL_HI : std_logic_vector(n-1 downto 0);
-  signal s_output_MUL_LO : std_logic_vector(n-1 downto 0);
+  signal s_output_MUL_HI : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_output_MUL_LO : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+  signal s_mem_addr_ls1 : std_logic_vector(ADDR_WIDTH-1 downto 0);
+
+  signal s_offset_ls1, s_rf_data_ls1, s_wrdata_ls1, s_rddata_ls1, s_mem_rddata_ls1,
+    s_mem_wrdata_ls1 : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+  signal s_clk : std_logic := '0';
+  signal s_rst_ls1 : std_logic := '0';
+  signal s_enable_read_ls1, s_enable_write_ls1, s_rf_wr_ls1, s_mem_rd_ls1, s_mem_wr_ls1 : std_logic;
 
   constant num_cycles : integer := 50;
 
@@ -40,6 +50,10 @@ begin
 
   basic_unit_0 : entity work.basic_unit
   port map (
+    clk => s_clk,
+    rst_ls1 => s_rst_ls1,
+    enable_read_ls1 => s_enable_read_ls1,
+    enable_write_ls1 => s_enable_write_ls1,
     input_ALU_1A => s_input_ALU_1A,
     input_ALU_1B => s_input_ALU_1B,
     input_ALU_2A => s_input_ALU_2A,
@@ -59,7 +73,17 @@ begin
     input_MUL_1B => s_input_MUL_1B,
     op_MUL_1 => s_op_MUL_1,
     output_MUL_HI => s_output_MUL_HI,
-    output_MUL_LO => s_output_MUL_LO
+    output_MUL_LO => s_output_MUL_LO,
+    mem_addr_ls1 => s_mem_addr_ls1,
+    offset_ls1 => s_offset_ls1,
+    rf_data_ls1 => s_rf_data_ls1,
+    wrdata_ls1 => s_wrdata_ls1,
+    rddata_ls1 => s_rddata_ls1,
+    mem_rddata_ls1 => s_mem_rddata_ls1,
+    mem_wrdata_ls1 => s_mem_wrdata_ls1,
+    rf_wr_ls1 => s_rf_wr_ls1,
+    mem_rd_ls1 => s_mem_rd_ls1,
+    mem_wr_ls1 => s_mem_wr_ls1
   );
 
   process
@@ -94,6 +118,74 @@ begin
     wait for 200 ns;
 
     wait;
+  end process;
+
+  clock : process
+	begin
+    for i in 1 to num_cycles loop
+      s_clk <= not s_clk;
+      wait for 5 ns;
+      s_clk <= not s_clk;
+      wait for 5 ns;
+      -- clock period = 10 ns
+    end loop;
+    wait;
+	end process;
+
+  write_ls1 : process
+  begin
+    s_enable_write_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_write_ls1 <= '0';
+    wait;
+  end process;
+
+  read_ls1 : process
+  begin
+    s_enable_read_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_read_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_read_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_read_ls1 <= '1';
+    wait for 40 ns;
+    s_enable_read_ls1 <= '0';
+    wait for 40 ns;
+    s_enable_read_ls1 <= '1';
+    wait for 80 ns;
+    s_enable_read_ls1 <= '0';
+    --wait for 40 ns;
+    --s_enable_read <= '1';
+    wait;
+  end process;
+
+  test_ls1 : process
+  begin
+    s_rf_data_ls1 <= "00100000000000000000000000000000";
+    s_offset_ls1 <= "00000000000000000000000000001000";
+    s_wrdata_ls1 <= "00000000000000000000000000000011";
+		wait for 50 ns;
+
+    s_rf_data_ls1 <= "00000000100000000000000000000000";
+    s_offset_ls1 <= "00000000000000000000000000000010";
+    s_mem_rddata_ls1 <= "00000000000000000000000000000111";
+    wait for 50 ns;
+
+    s_rst_ls1 <= '1';
+		wait;
   end process;
 
 end basic_unit_tb;
