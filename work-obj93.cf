@@ -1,4 +1,7 @@
 v 3
+file . "testbenches/load_store_tb.vhd" "20160629043116.000" "20160629013141.929":
+  entity load_store_tb at 4( 66) + 0 on 475;
+  architecture load_store_tb of load_store_tb at 14( 234) + 0 on 476;
 file . "src/signals_for_writing.vhd" "20160627191842.000" "20160628001157.661":
   entity signals_for_writing at 4( 49) + 0 on 447;
   architecture signals_for_writing of signals_for_writing at 63( 3015) + 0 on 448;
@@ -38,3 +41,6 @@ file . "testbenches/reg_tb.vhd" "20160605182413.000" "20160605155002.808":
 file . "testbenches/register_file_tb.vhd" "20160606035648.000" "20160627131347.203":
   entity register_file_tb at 4( 67) + 0 on 317;
   architecture register_file_tb of register_file_tb at 13( 209) + 0 on 318;
+file . "src/load_store.vhd" "20160629042414.000" "20160629013141.863":
+  entity load_store at 4( 89) + 0 on 473;
+  architecture load_store of load_store at 37( 1282) + 0 on 474;

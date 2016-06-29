@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ghdl -i src/load_store.vhd
-ghdl -i testbenches/load_store_tb.vhd
-ghdl -m load_store_tb
-#./alu_tb --stop-time=1us --wave=waves/alu1.ghw
-#gtkwave waves/alu1.ghw
+ghdl -a src/load_store.vhd
+ghdl -a testbenches/load_store_tb.vhd
+ghdl -e load_store_tb
+ghdl -r load_store_tb --vcd=waves/load_store1.vcd
+gtkwave waves/load_store1.vcd
