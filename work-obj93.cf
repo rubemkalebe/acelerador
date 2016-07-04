@@ -1,46 +1,46 @@
 v 3
-file . "src/load_store.vhd" "20160629042414.000" "20160629121416.884":
-  entity load_store at 4( 89) + 0 on 585;
-  architecture load_store of load_store at 37( 1282) + 0 on 586;
-file . "testbenches/register_file_tb.vhd" "20160606035648.000" "20160627131347.203":
-  entity register_file_tb at 4( 67) + 0 on 317;
-  architecture register_file_tb of register_file_tb at 13( 209) + 0 on 318;
-file . "testbenches/reg_tb.vhd" "20160605182413.000" "20160605155002.808":
-  entity reg_tb at 4( 64) + 0 on 249;
-  architecture reg_tb of reg_tb at 13( 177) + 0 on 250;
-file . "src/cluster.vhd" "20160628031143.000" "20160628001158.804":
-  entity cluster at 5( 115) + 0 on 449;
-  architecture cluster of cluster at 144( 5656) + 0 on 450;
-file . "src/basic_unit.vhd" "20160629151408.000" "20160629121416.952":
-  entity basic_unit at 4( 89) + 0 on 587;
-  architecture basic_unit of basic_unit at 60( 2181) + 0 on 588;
-file . "src/alu.vhd" "20160521121015.000" "20160629121416.633":
-  entity alu at 5( 181) + 0 on 581;
-  architecture alu of alu at 24( 599) + 0 on 582;
-file . "src/reg.vhd" "20160521121015.000" "20160629121416.449":
-  entity reg at 4( 47) + 0 on 579;
-  architecture reg of reg at 21( 371) + 0 on 580;
-file . "src/multiplier.vhd" "20160521121015.000" "20160629121416.811":
-  entity multiplier at 4( 90) + 0 on 583;
-  architecture multiplier of multiplier at 22( 467) + 0 on 584;
-file . "testbenches/basic_unit_tb.vhd" "20160629151355.000" "20160629121417.243":
-  entity basic_unit_tb at 4( 66) + 0 on 589;
-  architecture basic_unit_tb of basic_unit_tb at 15( 265) + 0 on 590;
-file . "src/register_file.vhd" "20160616202702.000" "20160628001148.663":
-  entity register_file at 6( 225) + 0 on 441;
-  architecture register_file of register_file at 161( 6820) + 0 on 442;
-file . "testbenches/cluster_tb.vhd" "20160628030728.000" "20160628001200.459":
-  entity cluster_tb at 4( 63) + 0 on 451;
-  architecture cluster_tb of cluster_tb at 14( 225) + 0 on 452;
-file . "src/load_from_rf.vhd" "20160607203035.000" "20160607173038.866":
-  entity load_from_rf at 4( 67) + 0 on 273;
-  architecture load_from_rf of load_from_rf at 99( 5121) + 0 on 274;
-file . "src/load_input_signals.vhd" "20160606162116.000" "20160628001149.619":
-  entity load_input_signals at 5( 123) + 0 on 445;
-  architecture load_input_signals of load_input_signals at 100( 5303) + 0 on 446;
+file . "testbenches/load_store_tb.vhd" "20160704222459.000" "20160704192506.139":
+  entity load_store_tb at 4( 66) + 0 on 623;
+  architecture load_store_tb of load_store_tb at 16( 297) + 0 on 624;
 file . "src/signals_for_writing.vhd" "20160627191842.000" "20160628001157.661":
   entity signals_for_writing at 4( 49) + 0 on 447;
   architecture signals_for_writing of signals_for_writing at 63( 3015) + 0 on 448;
-file . "testbenches/load_store_tb.vhd" "20160629043116.000" "20160629013141.929":
-  entity load_store_tb at 4( 66) + 0 on 475;
-  architecture load_store_tb of load_store_tb at 14( 234) + 0 on 476;
+file . "src/load_input_signals.vhd" "20160606162116.000" "20160628001149.619":
+  entity load_input_signals at 5( 123) + 0 on 445;
+  architecture load_input_signals of load_input_signals at 100( 5303) + 0 on 446;
+file . "src/load_from_rf.vhd" "20160607203035.000" "20160607173038.866":
+  entity load_from_rf at 4( 67) + 0 on 273;
+  architecture load_from_rf of load_from_rf at 99( 5121) + 0 on 274;
+file . "testbenches/cluster_tb.vhd" "20160628030728.000" "20160628001200.459":
+  entity cluster_tb at 4( 63) + 0 on 451;
+  architecture cluster_tb of cluster_tb at 14( 225) + 0 on 452;
+file . "src/register_file.vhd" "20160616202702.000" "20160628001148.663":
+  entity register_file at 6( 225) + 0 on 441;
+  architecture register_file of register_file at 161( 6820) + 0 on 442;
+file . "testbenches/basic_unit_tb.vhd" "20160629151355.000" "20160629121417.243":
+  entity basic_unit_tb at 4( 66) + 0 on 589;
+  architecture basic_unit_tb of basic_unit_tb at 15( 265) + 0 on 590;
+file . "src/multiplier.vhd" "20160521121015.000" "20160629121416.811":
+  entity multiplier at 4( 90) + 0 on 583;
+  architecture multiplier of multiplier at 22( 467) + 0 on 584;
+file . "src/reg.vhd" "20160521121015.000" "20160629121416.449":
+  entity reg at 4( 47) + 0 on 579;
+  architecture reg of reg at 21( 371) + 0 on 580;
+file . "src/alu.vhd" "20160521121015.000" "20160629121416.633":
+  entity alu at 5( 181) + 0 on 581;
+  architecture alu of alu at 24( 599) + 0 on 582;
+file . "src/basic_unit.vhd" "20160629151408.000" "20160629121416.952":
+  entity basic_unit at 4( 89) + 0 on 587;
+  architecture basic_unit of basic_unit at 60( 2181) + 0 on 588;
+file . "src/cluster.vhd" "20160628031143.000" "20160628001158.804":
+  entity cluster at 5( 115) + 0 on 449;
+  architecture cluster of cluster at 144( 5656) + 0 on 450;
+file . "testbenches/reg_tb.vhd" "20160605182413.000" "20160605155002.808":
+  entity reg_tb at 4( 64) + 0 on 249;
+  architecture reg_tb of reg_tb at 13( 177) + 0 on 250;
+file . "testbenches/register_file_tb.vhd" "20160606035648.000" "20160627131347.203":
+  entity register_file_tb at 4( 67) + 0 on 317;
+  architecture register_file_tb of register_file_tb at 13( 209) + 0 on 318;
+file . "src/load_store.vhd" "20160704211242.000" "20160704192505.991":
+  entity load_store at 5( 153) + 0 on 621;
+  architecture load_store of load_store at 43( 1498) + 0 on 622;
