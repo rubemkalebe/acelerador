@@ -1,4 +1,7 @@
 v 3
+file . "testbenches/alu_tb.vhd" "20160521121015.000" "20160704203649.990":
+  entity alu_tb at 4( 61) + 0 on 627;
+  architecture alu_tb of alu_tb at 14( 212) + 0 on 628;
 file . "testbenches/load_store_tb.vhd" "20160704222459.000" "20160704192506.139":
   entity load_store_tb at 4( 66) + 0 on 623;
   architecture load_store_tb of load_store_tb at 16( 297) + 0 on 624;
@@ -26,9 +29,9 @@ file . "src/multiplier.vhd" "20160521121015.000" "20160629121416.811":
 file . "src/reg.vhd" "20160521121015.000" "20160629121416.449":
   entity reg at 4( 47) + 0 on 579;
   architecture reg of reg at 21( 371) + 0 on 580;
-file . "src/alu.vhd" "20160521121015.000" "20160629121416.633":
-  entity alu at 5( 181) + 0 on 581;
-  architecture alu of alu at 24( 599) + 0 on 582;
+file . "src/alu.vhd" "20160704233635.000" "20160704203649.356":
+  entity alu at 5( 186) + 0 on 625;
+  architecture alu of alu at 24( 604) + 0 on 626;
 file . "src/basic_unit.vhd" "20160629151408.000" "20160629121416.952":
   entity basic_unit at 4( 89) + 0 on 587;
   architecture basic_unit of basic_unit at 60( 2181) + 0 on 588;
