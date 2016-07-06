@@ -45,7 +45,7 @@ architecture basic_unit_tb of basic_unit_tb is
   signal s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_mem_rddata_LS1,
     s_mem_wrdata_LS1 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-  signal s_clk : std_logic := '0';
+  signal s_clk : std_logic := '1';
   signal s_rst_LS1 : std_logic := '0';
   signal s_enable_read_LS1, s_enable_write_LS1, s_rf_wr_LS1, s_mem_rd_LS1, s_mem_wr_LS1 : std_logic;
 

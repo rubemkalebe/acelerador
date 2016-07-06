@@ -15,7 +15,7 @@ end load_store_tb;
 
 architecture load_store_tb of load_store_tb is
 
-  signal s_clk : std_logic := '0';
+  signal s_clk : std_logic := '1';
   signal s_rst : std_logic := '0';
   signal s_enable_read : std_logic := '0';
   signal s_enable_write : std_logic := '0';

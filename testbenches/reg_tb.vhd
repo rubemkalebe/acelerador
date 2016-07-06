@@ -13,9 +13,9 @@ end reg_tb;
 architecture reg_tb of reg_tb is
 
   signal s_reg_input, s_reg_output : std_logic_vector(n-1 downto 0);
-  signal s_enable_read : std_logic := '0';
-  signal s_enable_write : std_logic := '0';
-  signal s_clk : std_logic := '0';
+  signal s_enable_read : std_logic;
+  signal s_enable_write : std_logic;
+  signal s_clk : std_logic := '1';
 
   constant num_cycles : integer := 30;
 

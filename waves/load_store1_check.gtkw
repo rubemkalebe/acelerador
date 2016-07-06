@@ -1,17 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
-[*] Mon Jul  4 22:31:28 2016
+[*] Wed Jul  6 22:20:45 2016
 [*]
 [dumpfile] "/home/rubemkalebe/acelerador/waves/load_store1.vcd"
-[dumpfile_mtime] "Mon Jul  4 22:25:06 2016"
-[dumpfile_size] 4213
+[dumpfile_mtime] "Wed Jul  6 22:13:53 2016"
+[dumpfile_size] 4285
 [savefile] "/home/rubemkalebe/acelerador/waves/load_store1_check.gtkw"
 [timestart] 0
 [size] 1301 744
 [pos] -1 -1
-*-26.582657 118000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.561069 103200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [sst_width] 223
-[signals_width] 443
+[signals_width] 434
 [sst_expanded] 1
 [sst_vpaned_height] 211
 @28
@@ -31,7 +31,7 @@ s_rst
 @28
 s_mem_rddata[31:0]
 s_rddata[31:0]
-@200
+@208
 -
 @28
 s_wrdata[31:0]
