@@ -1,5 +1,5 @@
 -- A basic unit contains 3 ALUs, 1 multiplier and 1 load/store.
--- Version: 06.29.2016.
+-- Version: 07.06.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -8,14 +8,16 @@ entity basic_unit is
   generic (
     DATA_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 32;
+    HALF_WIDTH : natural := 16;
     OPCD_WIDTH : natural := 4
   );
 
   port (
     clk : in std_logic;
-    rst_ls1 : in std_logic; -- reset for load_store
-    enable_read_ls1 : in std_logic; -- for load store
-    enable_write_ls1 : in std_logic; -- for load store
+
+    rst_LS1 : in std_logic; -- reset for load_store
+    enable_read_LS1 : in std_logic; -- for load store
+    enable_write_LS1 : in std_logic; -- for load store
 
     input_ALU_1A : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input_ALU_1B : in std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -42,17 +44,19 @@ entity basic_unit is
     output_MUL_HI : out std_logic_vector(DATA_WIDTH-1 downto 0);
     output_MUL_LO : out std_logic_vector(DATA_WIDTH-1 downto 0);
 
-    offset_ls1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    rf_data_ls1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    wrdata_ls1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    rddata_ls1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    rf_wr_ls1 : out std_logic;
+    opcode_LS1 : in std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-    mem_addr_ls1    : out std_logic_vector(ADDR_WIDTH-1 downto 0);
-    mem_rddata_ls1  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    mem_wrdata_ls1  : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    mem_rd_ls1      : out std_logic;
-    mem_wr_ls1      : out std_logic
+    offset_LS1 : in std_logic_vector(HALF_WIDTH-1 downto 0);
+    rf_data_LS1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    wrdata_LS1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+    rddata_LS1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    rf_wr_LS1 : out std_logic;
+
+    mem_addr_LS1    : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+    mem_rddata_LS1  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+    mem_wrdata_LS1  : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    mem_rd_LS1      : out std_logic;
+    mem_wr_LS1      : out std_logic
   );
 
 end basic_unit;
@@ -90,8 +94,11 @@ end component;
 
 component load_store is
   generic (
-    DATA_WIDTH : natural := 32;
-    ADDR_WIDTH : natural := 32
+    WORD_WIDTH : natural := 32;
+    ADDR_WIDTH : natural := 32;
+    HALF_WIDTH : natural := 16;
+    BYTE_WIDTH : natural := 8;
+    OPCD_WIDTH : natural := 4
   );
 
   port (
@@ -100,16 +107,19 @@ component load_store is
     enable_read : in std_logic;
     enable_write : in std_logic;
 
-    -- RF interface
-    offset : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    rf_data : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    wrdata : in std_logic_vector(DATA_WIDTH-1 downto 0);
-    rddata : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    rf_wr : out std_logic;
+    opcode : in std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-    mem_addr    : out std_logic_vector(ADDR_WIDTH-1 downto 0);
-    mem_rddata  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    mem_wrdata  : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    -- RF interface
+    offset : in std_logic_vector(HALF_WIDTH-1 downto 0);
+    rf_data : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value from register file for sum with offset
+    wrdata : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value to be written in memory
+    rddata : out std_logic_vector(WORD_WIDTH-1 downto 0); -- value read from memory going out to register file
+    rf_wr : out std_logic; -- bit that indicates if output should be written or not in register file
+
+    -- Memory interface
+    mem_addr    : out std_logic_vector(ADDR_WIDTH-1 downto 0); -- memory address for operation
+    mem_rddata  : in  std_logic_vector(WORD_WIDTH-1 downto 0); -- value read from memory
+    mem_wrdata  : out std_logic_vector(WORD_WIDTH-1 downto 0); -- value to be written in memory going out to memory
     mem_rd      : out std_logic;
     mem_wr      : out std_logic
   );
@@ -124,12 +134,16 @@ end component;
          s_input_ALU_3A, s_input_ALU_3B, s_input_MUL_1A,
          s_input_MUL_1B : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-  signal s_mem_addr_ls1 : std_logic_vector(ADDR_WIDTH-1 downto 0);
+  signal s_mem_addr_LS1 : std_logic_vector(ADDR_WIDTH-1 downto 0);
 
-  signal s_offset_ls1, s_rf_data_ls1, s_wrdata_ls1, s_rddata_ls1, s_mem_rddata_ls1,
-    s_mem_wrdata_ls1 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal s_opcode_LS1 : std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-  signal s_rf_wr_ls1, s_mem_rd_ls1, s_mem_wr_ls1 : std_logic;
+  signal s_offset_LS1 : std_logic_vector(HALF_WIDTH-1 downto 0);
+
+  signal s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_mem_rddata_LS1,
+    s_mem_wrdata_LS1 : std_logic_vector(DATA_WIDTH-1 downto 0);
+
+  signal s_rf_wr_LS1, s_mem_rd_LS1, s_mem_wr_LS1 : std_logic;
 
 begin
 
@@ -142,17 +156,19 @@ begin
   s_input_MUL_1A <= input_MUL_1A;
   s_input_MUL_1B <= input_MUL_1B;
 
-  s_offset_ls1 <= offset_ls1;
-  s_rf_data_ls1 <= rf_data_ls1;
-  s_wrdata_ls1 <= wrdata_ls1;
-  s_mem_rddata_ls1 <= mem_rddata_ls1;
+  s_opcode_LS1 <= opcode_LS1;
+  s_offset_LS1 <= offset_LS1;
+  s_rf_data_LS1 <= rf_data_LS1;
+  s_wrdata_LS1 <= wrdata_LS1;
+  s_mem_rddata_LS1 <= mem_rddata_LS1;
 
   alu1 : alu port map(s_input_ALU_1A, s_input_ALU_1B, opcode_ALU_1, s_zero_ALU_1, s_output_ALU_1);
   alu2 : alu port map(s_input_ALU_2A, s_input_ALU_2B, opcode_ALU_2, s_zero_ALU_2, s_output_ALU_2);
   alu3 : alu port map(s_input_ALU_3A, s_input_ALU_3B, opcode_ALU_3, s_zero_ALU_3, s_output_ALU_3);
   mul1 : multiplier port map(s_input_MUL_1A, s_input_MUL_1B, op_MUL_1, s_output_MUL_HI, s_output_MUL_LO);
-  ls1: load_store port map(clk, rst_ls1, enable_read_ls1, enable_write_ls1, s_offset_ls1, s_rf_data_ls1, s_wrdata_ls1,
-     s_rddata_ls1, s_rf_wr_ls1, s_mem_addr_ls1, s_mem_rddata_ls1, s_mem_wrdata_ls1, s_mem_rd_ls1, s_mem_wr_ls1
+  ls1 : load_store port map(clk, rst_LS1, enable_read_LS1, enable_write_LS1, s_opcode_LS1, s_offset_LS1,
+    s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_rf_wr_LS1, s_mem_addr_LS1, s_mem_rddata_LS1, s_mem_wrdata_LS1,
+    s_mem_rd_LS1, s_mem_wr_LS1
   );
 
   output_ALU_1 <= s_output_ALU_1;
@@ -165,11 +181,11 @@ begin
   zero_ALU_2 <= s_zero_ALU_2;
   zero_ALU_3 <= s_zero_ALU_3;
 
-  rddata_ls1 <= s_rddata_ls1;
-  rf_wr_ls1 <= s_rf_wr_ls1;
-  mem_addr_ls1 <= s_mem_addr_ls1;
-  mem_wrdata_ls1 <= s_mem_wrdata_ls1;
-  mem_rd_ls1 <= s_mem_rd_ls1;
-  mem_wr_ls1 <= s_mem_wr_ls1;
+  rddata_LS1 <= s_rddata_LS1;
+  rf_wr_LS1 <= s_rf_wr_LS1;
+  mem_addr_LS1 <= s_mem_addr_LS1;
+  mem_wrdata_LS1 <= s_mem_wrdata_LS1;
+  mem_rd_LS1 <= s_mem_rd_LS1;
+  mem_wr_LS1 <= s_mem_wr_LS1;
 
 end basic_unit;
