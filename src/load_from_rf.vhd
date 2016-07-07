@@ -72,7 +72,6 @@ entity load_from_rf is
     inst4_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst4_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst5_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    inst5_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst6_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst6_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst7_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -82,7 +81,6 @@ entity load_from_rf is
     inst9_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst9_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst10_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    inst10_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst11_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst11_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst12_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -91,8 +89,7 @@ entity load_from_rf is
     inst13_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst14_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
     inst14_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    inst15_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    inst15_aux_rf_B : out std_logic_vector(DATA_WIDTH-1 downto 0)
+    inst15_aux_rf_A : out std_logic_vector(DATA_WIDTH-1 downto 0)
   );
 end load_from_rf;
 
