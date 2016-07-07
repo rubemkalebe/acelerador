@@ -1,5 +1,5 @@
 -- Load signals from local register file.
--- Version: 06.07.2016.
+-- Version: 07.06.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -460,42 +460,6 @@ begin
                     reg34 when (instruction5(22 downto 17) = reg_addr34) else
                     (others => '0');
 
-  inst5_aux_rf_B <= reg1 when (instruction5(16 downto 11) = reg_addr1) else
-                    reg2 when (instruction5(16 downto 11) = reg_addr2) else
-                    reg3 when (instruction5(16 downto 11) = reg_addr3) else
-                    reg4 when (instruction5(16 downto 11) = reg_addr4) else
-                    reg5 when (instruction5(16 downto 11) = reg_addr5) else
-                    reg6 when (instruction5(16 downto 11) = reg_addr6) else
-                    reg7 when (instruction5(16 downto 11) = reg_addr7) else
-                    reg8 when (instruction5(16 downto 11) = reg_addr8) else
-                    reg9 when (instruction5(16 downto 11) = reg_addr9) else
-                    reg10 when (instruction5(16 downto 11) = reg_addr10) else
-                    reg11 when (instruction5(16 downto 11) = reg_addr11) else
-                    reg12 when (instruction5(16 downto 11) = reg_addr12) else
-                    reg13 when (instruction5(16 downto 11) = reg_addr13) else
-                    reg14 when (instruction5(16 downto 11) = reg_addr14) else
-                    reg15 when (instruction5(16 downto 11) = reg_addr15) else
-                    reg16 when (instruction5(16 downto 11) = reg_addr16) else
-                    reg17 when (instruction5(16 downto 11) = reg_addr17) else
-                    reg18 when (instruction5(16 downto 11) = reg_addr18) else
-                    reg19 when (instruction5(16 downto 11) = reg_addr19) else
-                    reg20 when (instruction5(16 downto 11) = reg_addr20) else
-                    reg21 when (instruction5(16 downto 11) = reg_addr21) else
-                    reg22 when (instruction5(16 downto 11) = reg_addr22) else
-                    reg23 when (instruction5(16 downto 11) = reg_addr23) else
-                    reg24 when (instruction5(16 downto 11) = reg_addr24) else
-                    reg25 when (instruction5(16 downto 11) = reg_addr25) else
-                    reg26 when (instruction5(16 downto 11) = reg_addr26) else
-                    reg27 when (instruction5(16 downto 11) = reg_addr27) else
-                    reg28 when (instruction5(16 downto 11) = reg_addr28) else
-                    reg29 when (instruction5(16 downto 11) = reg_addr29) else
-                    reg30 when (instruction5(16 downto 11) = reg_addr30) else
-                    reg31 when (instruction5(16 downto 11) = reg_addr31) else
-                    reg32 when (instruction5(16 downto 11) = reg_addr32) else
-                    reg33 when (instruction5(16 downto 11) = reg_addr33) else
-                    reg34 when (instruction5(16 downto 11) = reg_addr34) else
-                    (others => '0');
-
   inst6_aux_rf_A <= reg1 when (instruction6(22 downto 17) = reg_addr1) else
                     reg2 when (instruction6(22 downto 17) = reg_addr2) else
                     reg3 when (instruction6(22 downto 17) = reg_addr3) else
@@ -820,42 +784,6 @@ begin
                     reg34 when (instruction10(22 downto 17) = reg_addr34) else
                     (others => '0');
 
-  inst10_aux_rf_B <= reg1 when (instruction10(16 downto 11) = reg_addr1) else
-                    reg2 when (instruction10(16 downto 11) = reg_addr2) else
-                    reg3 when (instruction10(16 downto 11) = reg_addr3) else
-                    reg4 when (instruction10(16 downto 11) = reg_addr4) else
-                    reg5 when (instruction10(16 downto 11) = reg_addr5) else
-                    reg6 when (instruction10(16 downto 11) = reg_addr6) else
-                    reg7 when (instruction10(16 downto 11) = reg_addr7) else
-                    reg8 when (instruction10(16 downto 11) = reg_addr8) else
-                    reg9 when (instruction10(16 downto 11) = reg_addr9) else
-                    reg10 when (instruction10(16 downto 11) = reg_addr10) else
-                    reg11 when (instruction10(16 downto 11) = reg_addr11) else
-                    reg12 when (instruction10(16 downto 11) = reg_addr12) else
-                    reg13 when (instruction10(16 downto 11) = reg_addr13) else
-                    reg14 when (instruction10(16 downto 11) = reg_addr14) else
-                    reg15 when (instruction10(16 downto 11) = reg_addr15) else
-                    reg16 when (instruction10(16 downto 11) = reg_addr16) else
-                    reg17 when (instruction10(16 downto 11) = reg_addr17) else
-                    reg18 when (instruction10(16 downto 11) = reg_addr18) else
-                    reg19 when (instruction10(16 downto 11) = reg_addr19) else
-                    reg20 when (instruction10(16 downto 11) = reg_addr20) else
-                    reg21 when (instruction10(16 downto 11) = reg_addr21) else
-                    reg22 when (instruction10(16 downto 11) = reg_addr22) else
-                    reg23 when (instruction10(16 downto 11) = reg_addr23) else
-                    reg24 when (instruction10(16 downto 11) = reg_addr24) else
-                    reg25 when (instruction10(16 downto 11) = reg_addr25) else
-                    reg26 when (instruction10(16 downto 11) = reg_addr26) else
-                    reg27 when (instruction10(16 downto 11) = reg_addr27) else
-                    reg28 when (instruction10(16 downto 11) = reg_addr28) else
-                    reg29 when (instruction10(16 downto 11) = reg_addr29) else
-                    reg30 when (instruction10(16 downto 11) = reg_addr30) else
-                    reg31 when (instruction10(16 downto 11) = reg_addr31) else
-                    reg32 when (instruction10(16 downto 11) = reg_addr32) else
-                    reg33 when (instruction10(16 downto 11) = reg_addr33) else
-                    reg34 when (instruction10(16 downto 11) = reg_addr34) else
-                    (others => '0');
-
   inst11_aux_rf_A <= reg1 when (instruction11(22 downto 17) = reg_addr1) else
                   reg2 when (instruction11(22 downto 17) = reg_addr2) else
                   reg3 when (instruction11(22 downto 17) = reg_addr3) else
@@ -1178,42 +1106,6 @@ begin
                 reg32 when (instruction15(22 downto 17) = reg_addr32) else
                 reg33 when (instruction15(22 downto 17) = reg_addr33) else
                 reg34 when (instruction15(22 downto 17) = reg_addr34) else
-                (others => '0');
-
-  inst15_aux_rf_B <= reg1 when (instruction15(16 downto 11) = reg_addr1) else
-                reg2 when (instruction15(16 downto 11) = reg_addr2) else
-                reg3 when (instruction15(16 downto 11) = reg_addr3) else
-                reg4 when (instruction15(16 downto 11) = reg_addr4) else
-                reg5 when (instruction15(16 downto 11) = reg_addr5) else
-                reg6 when (instruction15(16 downto 11) = reg_addr6) else
-                reg7 when (instruction15(16 downto 11) = reg_addr7) else
-                reg8 when (instruction15(16 downto 11) = reg_addr8) else
-                reg9 when (instruction15(16 downto 11) = reg_addr9) else
-                reg10 when (instruction15(16 downto 11) = reg_addr10) else
-                reg11 when (instruction15(16 downto 11) = reg_addr11) else
-                reg12 when (instruction15(16 downto 11) = reg_addr12) else
-                reg13 when (instruction15(16 downto 11) = reg_addr13) else
-                reg14 when (instruction15(16 downto 11) = reg_addr14) else
-                reg15 when (instruction15(16 downto 11) = reg_addr15) else
-                reg16 when (instruction15(16 downto 11) = reg_addr16) else
-                reg17 when (instruction15(16 downto 11) = reg_addr17) else
-                reg18 when (instruction15(16 downto 11) = reg_addr18) else
-                reg19 when (instruction15(16 downto 11) = reg_addr19) else
-                reg20 when (instruction15(16 downto 11) = reg_addr20) else
-                reg21 when (instruction15(16 downto 11) = reg_addr21) else
-                reg22 when (instruction15(16 downto 11) = reg_addr22) else
-                reg23 when (instruction15(16 downto 11) = reg_addr23) else
-                reg24 when (instruction15(16 downto 11) = reg_addr24) else
-                reg25 when (instruction15(16 downto 11) = reg_addr25) else
-                reg26 when (instruction15(16 downto 11) = reg_addr26) else
-                reg27 when (instruction15(16 downto 11) = reg_addr27) else
-                reg28 when (instruction15(16 downto 11) = reg_addr28) else
-                reg29 when (instruction15(16 downto 11) = reg_addr29) else
-                reg30 when (instruction15(16 downto 11) = reg_addr30) else
-                reg31 when (instruction15(16 downto 11) = reg_addr31) else
-                reg32 when (instruction15(16 downto 11) = reg_addr32) else
-                reg33 when (instruction15(16 downto 11) = reg_addr33) else
-                reg34 when (instruction15(16 downto 11) = reg_addr34) else
                 (others => '0');
 
 end load_from_rf;
