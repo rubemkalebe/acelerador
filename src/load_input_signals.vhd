@@ -173,7 +173,10 @@ begin
                 reg_input34 when (instruction1(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst1_aux_B <= ("0000000000000000" & instruction1(15 downto 0)) when (instruction1(33) = '1') else
+  inst1_aux_B <= ("000000000000000000000000000" & instruction1(4 downto 0)) -- take shamt when bitshift
+                    when (instruction1(33) = '1' and
+                    (instruction1(32 downto 29) >= "0100" and instruction1(32 downto 29) <= "0110")) else
+                ("0000000000000000" & instruction1(15 downto 0)) when (instruction1(33) = '1') else -- take immediate
                 reg_input1 when (instruction1(16 downto 11) = reg_addr1) else
                 reg_input2 when (instruction1(16 downto 11) = reg_addr2) else
                 reg_input3 when (instruction1(16 downto 11) = reg_addr3) else
@@ -246,7 +249,10 @@ begin
                 reg_input34 when (instruction2(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst2_aux_B <= ("0000000000000000" & instruction2(15 downto 0)) when (instruction2(33) = '1') else
+  inst2_aux_B <= ("000000000000000000000000000" & instruction2(4 downto 0))
+                    when (instruction2(33) = '1' and
+                    (instruction2(32 downto 29) >= "0100" and instruction2(32 downto 29) <= "0110")) else
+                ("0000000000000000" & instruction2(15 downto 0)) when (instruction2(33) = '1') else -- take immediate
                 reg_input1 when (instruction2(16 downto 11) = reg_addr1) else
                 reg_input2 when (instruction2(16 downto 11) = reg_addr2) else
                 reg_input3 when (instruction2(16 downto 11) = reg_addr3) else
@@ -319,7 +325,10 @@ begin
               reg_input34 when (instruction3(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst3_aux_B <= ("0000000000000000" & instruction3(15 downto 0)) when (instruction3(33) = '1') else
+  inst3_aux_B <= ("000000000000000000000000000" & instruction3(4 downto 0)) -- take shamt when bitshift
+                    when (instruction3(33) = '1' and
+                    (instruction3(32 downto 29) >= "0100" and instruction3(32 downto 29) <= "0110")) else
+              ("0000000000000000" & instruction3(15 downto 0)) when (instruction3(33) = '1') else -- take immediate
               reg_input1 when (instruction3(16 downto 11) = reg_addr1) else
               reg_input2 when (instruction3(16 downto 11) = reg_addr2) else
               reg_input3 when (instruction3(16 downto 11) = reg_addr3) else
@@ -464,40 +473,7 @@ begin
                 reg_input34 when (instruction5(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst5_aux_B <= reg_input1 when (instruction5(16 downto 11) = reg_addr1) else
-                reg_input2 when (instruction5(16 downto 11) = reg_addr2) else
-                reg_input3 when (instruction5(16 downto 11) = reg_addr3) else
-                reg_input4 when (instruction5(16 downto 11) = reg_addr4) else
-                reg_input5 when (instruction5(16 downto 11) = reg_addr5) else
-                reg_input6 when (instruction5(16 downto 11) = reg_addr6) else
-                reg_input7 when (instruction5(16 downto 11) = reg_addr7) else
-                reg_input8 when (instruction5(16 downto 11) = reg_addr8) else
-                reg_input9 when (instruction5(16 downto 11) = reg_addr9) else
-                reg_input10 when (instruction5(16 downto 11) = reg_addr10) else
-                reg_input11 when (instruction5(16 downto 11) = reg_addr11) else
-                reg_input12 when (instruction5(16 downto 11) = reg_addr12) else
-                reg_input13 when (instruction5(16 downto 11) = reg_addr13) else
-                reg_input14 when (instruction5(16 downto 11) = reg_addr14) else
-                reg_input15 when (instruction5(16 downto 11) = reg_addr15) else
-                reg_input16 when (instruction5(16 downto 11) = reg_addr16) else
-                reg_input17 when (instruction5(16 downto 11) = reg_addr17) else
-                reg_input18 when (instruction5(16 downto 11) = reg_addr18) else
-                reg_input19 when (instruction5(16 downto 11) = reg_addr19) else
-                reg_input20 when (instruction5(16 downto 11) = reg_addr20) else
-                reg_input21 when (instruction5(16 downto 11) = reg_addr21) else
-                reg_input22 when (instruction5(16 downto 11) = reg_addr22) else
-                reg_input23 when (instruction5(16 downto 11) = reg_addr23) else
-                reg_input24 when (instruction5(16 downto 11) = reg_addr24) else
-                reg_input25 when (instruction5(16 downto 11) = reg_addr25) else
-                reg_input26 when (instruction5(16 downto 11) = reg_addr26) else
-                reg_input27 when (instruction5(16 downto 11) = reg_addr27) else
-                reg_input28 when (instruction5(16 downto 11) = reg_addr28) else
-                reg_input29 when (instruction5(16 downto 11) = reg_addr29) else
-                reg_input30 when (instruction5(16 downto 11) = reg_addr30) else
-                reg_input31 when (instruction5(16 downto 11) = reg_addr31) else
-                reg_input32 when (instruction5(16 downto 11) = reg_addr32) else
-                reg_input33 when (instruction5(16 downto 11) = reg_addr33) else
-                reg_input34 when (instruction5(16 downto 11) = reg_addr34) else
+  inst5_aux_B <= ("0000000000000000" & instruction5(15 downto 0)) when (instruction5(33) = '1') else -- take immediate
                 (others => '0');
 
   inst6_aux_A <= reg_input1 when (instruction6(22 downto 17) = reg_addr1) else
@@ -536,7 +512,10 @@ begin
                 reg_input34 when (instruction6(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst6_aux_B <= ("0000000000000000" & instruction6(15 downto 0)) when (instruction6(33) = '1') else
+  inst6_aux_B <= ("000000000000000000000000000" & instruction6(4 downto 0)) -- take shamt when bitshift
+                    when (instruction6(33) = '1' and
+                    (instruction6(32 downto 29) >= "0100" and instruction6(32 downto 29) <= "0110")) else
+                ("0000000000000000" & instruction6(15 downto 0)) when (instruction6(33) = '1') else -- take immediate
                 reg_input1 when (instruction6(16 downto 11) = reg_addr1) else
                 reg_input2 when (instruction6(16 downto 11) = reg_addr2) else
                 reg_input3 when (instruction6(16 downto 11) = reg_addr3) else
@@ -609,7 +588,10 @@ begin
               reg_input34 when (instruction7(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst7_aux_B <= ("0000000000000000" & instruction7(15 downto 0)) when (instruction7(33) = '1') else
+  inst7_aux_B <= ("000000000000000000000000000" & instruction7(4 downto 0)) -- take shamt when bitshift
+                    when (instruction7(33) = '1' and
+                    (instruction7(32 downto 29) >= "0100" and instruction7(32 downto 29) <= "0110")) else
+              ("0000000000000000" & instruction7(15 downto 0)) when (instruction7(33) = '1') else -- take immediate
               reg_input1 when (instruction7(16 downto 11) = reg_addr1) else
               reg_input2 when (instruction7(16 downto 11) = reg_addr2) else
               reg_input3 when (instruction7(16 downto 11) = reg_addr3) else
@@ -682,7 +664,10 @@ begin
               reg_input34 when (instruction8(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst8_aux_B <= ("0000000000000000" & instruction8(15 downto 0)) when (instruction8(33) = '1') else
+  inst8_aux_B <= ("000000000000000000000000000" & instruction8(4 downto 0)) -- take shamt when bitshift
+                    when (instruction8(33) = '1' and
+                    (instruction8(32 downto 29) >= "0100" and instruction8(32 downto 29) <= "0110")) else
+              ("0000000000000000" & instruction8(15 downto 0)) when (instruction8(33) = '1') else -- take immediate
               reg_input1 when (instruction8(16 downto 11) = reg_addr1) else
               reg_input2 when (instruction8(16 downto 11) = reg_addr2) else
               reg_input3 when (instruction8(16 downto 11) = reg_addr3) else
@@ -827,40 +812,7 @@ begin
                 reg_input34 when (instruction10(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst10_aux_B <= reg_input1 when (instruction10(16 downto 11) = reg_addr1) else
-                reg_input2 when (instruction10(16 downto 11) = reg_addr2) else
-                reg_input3 when (instruction10(16 downto 11) = reg_addr3) else
-                reg_input4 when (instruction10(16 downto 11) = reg_addr4) else
-                reg_input5 when (instruction10(16 downto 11) = reg_addr5) else
-                reg_input6 when (instruction10(16 downto 11) = reg_addr6) else
-                reg_input7 when (instruction10(16 downto 11) = reg_addr7) else
-                reg_input8 when (instruction10(16 downto 11) = reg_addr8) else
-                reg_input9 when (instruction10(16 downto 11) = reg_addr9) else
-                reg_input10 when (instruction10(16 downto 11) = reg_addr10) else
-                reg_input11 when (instruction10(16 downto 11) = reg_addr11) else
-                reg_input12 when (instruction10(16 downto 11) = reg_addr12) else
-                reg_input13 when (instruction10(16 downto 11) = reg_addr13) else
-                reg_input14 when (instruction10(16 downto 11) = reg_addr14) else
-                reg_input15 when (instruction10(16 downto 11) = reg_addr15) else
-                reg_input16 when (instruction10(16 downto 11) = reg_addr16) else
-                reg_input17 when (instruction10(16 downto 11) = reg_addr17) else
-                reg_input18 when (instruction10(16 downto 11) = reg_addr18) else
-                reg_input19 when (instruction10(16 downto 11) = reg_addr19) else
-                reg_input20 when (instruction10(16 downto 11) = reg_addr20) else
-                reg_input21 when (instruction10(16 downto 11) = reg_addr21) else
-                reg_input22 when (instruction10(16 downto 11) = reg_addr22) else
-                reg_input23 when (instruction10(16 downto 11) = reg_addr23) else
-                reg_input24 when (instruction10(16 downto 11) = reg_addr24) else
-                reg_input25 when (instruction10(16 downto 11) = reg_addr25) else
-                reg_input26 when (instruction10(16 downto 11) = reg_addr26) else
-                reg_input27 when (instruction10(16 downto 11) = reg_addr27) else
-                reg_input28 when (instruction10(16 downto 11) = reg_addr28) else
-                reg_input29 when (instruction10(16 downto 11) = reg_addr29) else
-                reg_input30 when (instruction10(16 downto 11) = reg_addr30) else
-                reg_input31 when (instruction10(16 downto 11) = reg_addr31) else
-                reg_input32 when (instruction10(16 downto 11) = reg_addr32) else
-                reg_input33 when (instruction10(16 downto 11) = reg_addr33) else
-                reg_input34 when (instruction10(16 downto 11) = reg_addr34) else
+  inst10_aux_B <= ("0000000000000000" & instruction10(15 downto 0)) when (instruction10(33) = '1') else -- take immediate
                 (others => '0');
 
   inst11_aux_A <= reg_input1 when (instruction11(22 downto 17) = reg_addr1) else
@@ -899,7 +851,10 @@ begin
               reg_input34 when (instruction11(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst11_aux_B <= ("0000000000000000" & instruction11(15 downto 0)) when (instruction11(33) = '1') else
+  inst11_aux_B <= ("000000000000000000000000000" & instruction11(4 downto 0)) -- take shamt when bitshift
+                    when (instruction11(33) = '1' and
+                    (instruction11(32 downto 29) >= "0100" and instruction11(32 downto 29) <= "0110")) else
+              ("0000000000000000" & instruction11(15 downto 0)) when (instruction11(33) = '1') else -- take immediate
               reg_input1 when (instruction11(16 downto 11) = reg_addr1) else
               reg_input2 when (instruction11(16 downto 11) = reg_addr2) else
               reg_input3 when (instruction11(16 downto 11) = reg_addr3) else
@@ -972,7 +927,10 @@ begin
               reg_input34 when (instruction12(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst12_aux_B <= ("0000000000000000" & instruction12(15 downto 0)) when (instruction12(33) = '1') else
+  inst12_aux_B <= ("000000000000000000000000000" & instruction12(4 downto 0)) -- take shamt when bitshift
+                    when (instruction12(33) = '1' and
+                    (instruction12(32 downto 29) >= "0100" and instruction12(32 downto 29) <= "0110")) else
+              ("0000000000000000" & instruction12(15 downto 0)) when (instruction12(33) = '1') else -- take immediate
               reg_input1 when (instruction12(16 downto 11) = reg_addr1) else
               reg_input2 when (instruction12(16 downto 11) = reg_addr2) else
               reg_input3 when (instruction12(16 downto 11) = reg_addr3) else
@@ -1045,7 +1003,10 @@ begin
                 reg_input34 when (instruction13(22 downto 17) = reg_addr34) else
                 (others => '0');
 
-  inst13_aux_B <= ("0000000000000000" & instruction13(15 downto 0)) when (instruction13(33) = '1') else
+  inst13_aux_B <= ("000000000000000000000000000" & instruction13(4 downto 0)) -- take shamt when bitshift
+                    when (instruction13(33) = '1' and
+                    (instruction13(32 downto 29) >= "0100" and instruction13(32 downto 29) <= "0110")) else
+                ("0000000000000000" & instruction13(15 downto 0)) when (instruction13(33) = '1') else -- take immediate
                 reg_input1 when (instruction13(16 downto 11) = reg_addr1) else
                 reg_input2 when (instruction13(16 downto 11) = reg_addr2) else
                 reg_input3 when (instruction13(16 downto 11) = reg_addr3) else
@@ -1190,40 +1151,7 @@ begin
               reg_input34 when (instruction15(22 downto 17) = reg_addr34) else
               (others => '0');
 
-  inst15_aux_B <= reg_input1 when (instruction15(16 downto 11) = reg_addr1) else
-              reg_input2 when (instruction15(16 downto 11) = reg_addr2) else
-              reg_input3 when (instruction15(16 downto 11) = reg_addr3) else
-              reg_input4 when (instruction15(16 downto 11) = reg_addr4) else
-              reg_input5 when (instruction15(16 downto 11) = reg_addr5) else
-              reg_input6 when (instruction15(16 downto 11) = reg_addr6) else
-              reg_input7 when (instruction15(16 downto 11) = reg_addr7) else
-              reg_input8 when (instruction15(16 downto 11) = reg_addr8) else
-              reg_input9 when (instruction15(16 downto 11) = reg_addr9) else
-              reg_input10 when (instruction15(16 downto 11) = reg_addr10) else
-              reg_input11 when (instruction15(16 downto 11) = reg_addr11) else
-              reg_input12 when (instruction15(16 downto 11) = reg_addr12) else
-              reg_input13 when (instruction15(16 downto 11) = reg_addr13) else
-              reg_input14 when (instruction15(16 downto 11) = reg_addr14) else
-              reg_input15 when (instruction15(16 downto 11) = reg_addr15) else
-              reg_input16 when (instruction15(16 downto 11) = reg_addr16) else
-              reg_input17 when (instruction15(16 downto 11) = reg_addr17) else
-              reg_input18 when (instruction15(16 downto 11) = reg_addr18) else
-              reg_input19 when (instruction15(16 downto 11) = reg_addr19) else
-              reg_input20 when (instruction15(16 downto 11) = reg_addr20) else
-              reg_input21 when (instruction15(16 downto 11) = reg_addr21) else
-              reg_input22 when (instruction15(16 downto 11) = reg_addr22) else
-              reg_input23 when (instruction15(16 downto 11) = reg_addr23) else
-              reg_input24 when (instruction15(16 downto 11) = reg_addr24) else
-              reg_input25 when (instruction15(16 downto 11) = reg_addr25) else
-              reg_input26 when (instruction15(16 downto 11) = reg_addr26) else
-              reg_input27 when (instruction15(16 downto 11) = reg_addr27) else
-              reg_input28 when (instruction15(16 downto 11) = reg_addr28) else
-              reg_input29 when (instruction15(16 downto 11) = reg_addr29) else
-              reg_input30 when (instruction15(16 downto 11) = reg_addr30) else
-              reg_input31 when (instruction15(16 downto 11) = reg_addr31) else
-              reg_input32 when (instruction15(16 downto 11) = reg_addr32) else
-              reg_input33 when (instruction15(16 downto 11) = reg_addr33) else
-              reg_input34 when (instruction15(16 downto 11) = reg_addr34) else
+  inst15_aux_B <= ("0000000000000000" & instruction15(15 downto 0)) when (instruction15(33) = '1') else -- take immediate
               (others => '0');
 
 end load_input_signals;
