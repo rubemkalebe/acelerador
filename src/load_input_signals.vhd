@@ -1,6 +1,6 @@
 -- Load directly auxiliar signals for component inputs.
 -- Value from register_file or immediate.
--- Version: 06.06.2016.
+-- Version: 07.10.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;

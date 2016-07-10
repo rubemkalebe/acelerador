@@ -1,5 +1,5 @@
 -- A basic unit contains 3 ALUs, 1 multiplier and 1 load/store.
--- Version: 07.06.2016.
+-- Version: 07.10.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -8,7 +8,6 @@ entity basic_unit is
   generic (
     DATA_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 32;
-    HALF_WIDTH : natural := 16;
     OPCD_WIDTH : natural := 4
   );
 
@@ -46,7 +45,7 @@ entity basic_unit is
 
     opcode_LS1 : in std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-    offset_LS1 : in std_logic_vector(HALF_WIDTH-1 downto 0);
+    offset_LS1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     rf_data_LS1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     wrdata_LS1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     rddata_LS1 : out std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -110,7 +109,7 @@ component load_store is
     opcode : in std_logic_vector(OPCD_WIDTH-1 downto 0);
 
     -- RF interface
-    offset : in std_logic_vector(HALF_WIDTH-1 downto 0);
+    offset : in std_logic_vector(WORD_WIDTH-1 downto 0);
     rf_data : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value from register file for sum with offset
     wrdata : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value to be written in memory
     rddata : out std_logic_vector(WORD_WIDTH-1 downto 0); -- value read from memory going out to register file
@@ -138,9 +137,7 @@ end component;
 
   signal s_opcode_LS1 : std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-  signal s_offset_LS1 : std_logic_vector(HALF_WIDTH-1 downto 0);
-
-  signal s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_mem_rddata_LS1,
+  signal s_offset_LS1, s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_mem_rddata_LS1,
     s_mem_wrdata_LS1 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
   signal s_rf_wr_LS1, s_mem_rd_LS1, s_mem_wr_LS1 : std_logic;

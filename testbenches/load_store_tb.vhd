@@ -9,6 +9,7 @@ entity load_store_tb is
     WORD_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 32;
     HALF_WIDTH : natural := 16;
+    BYTE_WIDTH : natural := 8;
     OPCD_WIDTH : natural := 4
   );
 end load_store_tb;
@@ -24,7 +25,7 @@ architecture load_store_tb of load_store_tb is
   signal s_wrdata : std_logic_vector(WORD_WIDTH-1 downto 0);
   signal s_rddata : std_logic_vector(WORD_WIDTH-1 downto 0);
   signal s_rf_wr : std_logic;
-  signal s_offset : std_logic_vector(HALF_WIDTH-1 downto 0);
+  signal s_offset : std_logic_vector(WORD_WIDTH-1 downto 0);
 
   signal s_mem_rd      : std_logic;
   signal s_mem_wr      : std_logic;
@@ -112,53 +113,53 @@ begin
   test : process
   begin
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000000000000000000111";
     s_opcode <= "0000"; -- lw
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000000000000000000011";
     s_opcode <= "0001"; -- lh (signed)
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000001000000000000011";
     s_opcode <= "0001"; -- lh (signed)
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000001000000000000011";
     s_opcode <= "0010"; -- lhu (unsigned)
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000000000000000000011";
     s_opcode <= "0011"; -- lb (signed)
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000000000000010000011";
     s_opcode <= "0011"; -- lb (signed)
 		wait for 10 ns;
     s_rf_data <= "00100000000000000000000000000000";
-    s_offset <= "0000000000001000";
+    s_offset <= "00000000000000000000000000001000";
     s_mem_rddata <= "00000000000000000000000010000011";
     s_opcode <= "0100"; -- lbu (unsigned)
 		wait for 20 ns;
 
     s_rf_data <= "00000000100000000000000000000000";
-    s_offset <= "0000000000000010";
+    s_offset <= "00000000000000000000000000000010";
     s_wrdata <= "01000000000000000000000000000111";
     s_opcode <= "0101"; -- sw
     wait for 10 ns;
     s_rf_data <= "00000000100000000000000000000000";
-    s_offset <= "0000000000000010";
+    s_offset <= "00000000000000000000000000000010";
     s_wrdata <= "00000000000000011000000000000111";
     s_opcode <= "0110"; -- sh
     wait for 10 ns;
     s_rf_data <= "00000000100000000000000000000000";
-    s_offset <= "0000000000000010";
+    s_offset <= "00000000000000000000000000000010";
     s_wrdata <= "00000000000000000000000110000111";
     s_opcode <= "0111"; -- sb
     wait for 10 ns;

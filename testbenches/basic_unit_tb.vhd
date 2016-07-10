@@ -1,5 +1,5 @@
 -- Testbench for a basic unit component.
--- Version: 07.06.2016.
+-- Version: 07.10.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -8,7 +8,6 @@ entity basic_unit_tb is
   generic (
     DATA_WIDTH : natural := 32;
     ADDR_WIDTH : natural := 32;
-    HALF_WIDTH : natural := 16;
     OPCD_WIDTH : natural := 4
   );
 end basic_unit_tb;
@@ -40,7 +39,7 @@ architecture basic_unit_tb of basic_unit_tb is
 
   signal s_opcode_LS1 : std_logic_vector(OPCD_WIDTH-1 downto 0);
 
-  signal s_offset_LS1 : std_logic_vector(HALF_WIDTH-1 downto 0);
+  signal s_offset_LS1 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
   signal s_rf_data_LS1, s_wrdata_LS1, s_rddata_LS1, s_mem_rddata_LS1,
     s_mem_wrdata_LS1 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -165,53 +164,53 @@ begin
   test_LS1 : process
   begin
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000000000000000000111";
     s_opcode_LS1 <= "0000"; -- lw
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000000000000000000011";
     s_opcode_LS1 <= "0001"; -- lh (signed)
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000001000000000000011";
     s_opcode_LS1 <= "0001"; -- lh (signed)
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000001000000000000011";
     s_opcode_LS1 <= "0010"; -- lhu (unsigned)
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000000000000000000011";
     s_opcode_LS1 <= "0011"; -- lb (signed)
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000000000000010000011";
     s_opcode_LS1 <= "0011"; -- lb (signed)
 		wait for 10 ns;
     s_rf_data_LS1 <= "00100000000000000000000000000000";
-    s_offset_LS1 <= "0000000000001000";
+    s_offset_LS1 <= "00000000000000000000000000001000";
     s_mem_rddata_LS1 <= "00000000000000000000000010000011";
     s_opcode_LS1 <= "0100"; -- lbu (unsigned)
 		wait for 20 ns;
 
     s_rf_data_LS1 <= "00000000100000000000000000000000";
-    s_offset_LS1 <= "0000000000000010";
+    s_offset_LS1 <= "00000000000000000000000000000010";
     s_wrdata_LS1 <= "01000000000000000000000000000111";
     s_opcode_LS1 <= "0101"; -- sw
     wait for 10 ns;
     s_rf_data_LS1 <= "00000000100000000000000000000000";
-    s_offset_LS1 <= "0000000000000010";
+    s_offset_LS1 <= "00000000000000000000000000000010";
     s_wrdata_LS1 <= "00000000000000011000000000000111";
     s_opcode_LS1 <= "0110"; -- sh
     wait for 10 ns;
     s_rf_data_LS1 <= "00000000100000000000000000000000";
-    s_offset_LS1 <= "0000000000000010";
+    s_offset_LS1 <= "00000000000000000000000000000010";
     s_wrdata_LS1 <= "00000000000000000000000110000111";
     s_opcode_LS1 <= "0111"; -- sb
     wait for 10 ns;

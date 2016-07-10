@@ -1,6 +1,6 @@
 -- Performs load and store from/to memory to the register file.
 -- Operations supported: lw, lh, lhu, lb, lbu, sw, sh, sb.
--- Version: 07.04.2016.
+-- Version: 07.10.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -24,7 +24,7 @@ entity load_store is
     opcode : in std_logic_vector(OPCD_WIDTH-1 downto 0);
 
     -- RF interface
-    offset : in std_logic_vector(HALF_WIDTH-1 downto 0);
+    offset : in std_logic_vector(WORD_WIDTH-1 downto 0);
     rf_data : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value from register file for sum with offset
     wrdata : in std_logic_vector(WORD_WIDTH-1 downto 0); -- value to be written in memory
     rddata : out std_logic_vector(WORD_WIDTH-1 downto 0); -- value read from memory going out to register file
@@ -57,7 +57,7 @@ mem_wrdata <= wrdata when (opcode = "0101") else -- sw
           (others => '0');
 
 -- calculates memory address
-mem_addr <= std_logic_vector(unsigned(rf_data) + unsigned(("0000000000000000" & offset)));
+mem_addr <= std_logic_vector(unsigned(rf_data) + unsigned(offset));
 
 process(clk)
 begin
