@@ -1,5 +1,5 @@
 -- Testbench for a cluster component.
--- Version: 06.27.2016.
+-- Version: 07.12.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -7,6 +7,7 @@ use ieee.std_logic_1164.all;
 entity cluster_tb is
   generic (
     DATA_WIDTH : natural := 32;
+    ADDR_WIDTH : natural := 32;
     INST_WIDTH : natural := 36
   );
 end cluster_tb;
@@ -122,6 +123,18 @@ architecture cluster_tb of cluster_tb is
   signal s_read_reg33 : std_logic;
   signal s_read_reg34 : std_logic;
 
+  signal s_inst5_rst : std_logic; -- reset for load_store
+  signal s_inst5_enable_read : std_logic; -- for load store
+  signal s_inst5_enable_write : std_logic; -- for load store
+
+  signal s_inst10_rst : std_logic; -- reset for load_store
+  signal s_inst10_enable_read : std_logic; -- for load store
+  signal s_inst10_enable_write : std_logic; -- for load store
+
+  signal s_inst15_rst : std_logic; -- reset for load_store
+  signal s_inst15_enable_read : std_logic; -- for load store
+  signal s_inst15_enable_write : std_logic; -- for load store
+
   signal s_instruction1 : std_logic_vector(INST_WIDTH-1 downto 0);
   signal s_instruction2 : std_logic_vector(INST_WIDTH-1 downto 0);
   signal s_instruction3 : std_logic_vector(INST_WIDTH-1 downto 0);
@@ -138,7 +151,7 @@ architecture cluster_tb of cluster_tb is
   signal s_instruction14 : std_logic_vector(INST_WIDTH-1 downto 0);
   signal s_instruction15 : std_logic_vector(INST_WIDTH-1 downto 0);
 
-  constant num_cycles : integer := 50;
+  constant num_cycles : integer := 60;
 
 begin
 
@@ -253,6 +266,18 @@ begin
     read_reg33 => s_read_reg33,
     read_reg34 => s_read_reg34,
 
+    inst5_rst => s_inst5_rst,
+    inst5_enable_read => s_inst5_enable_read,
+    inst5_enable_write => s_inst5_enable_write,
+
+    inst10_rst => s_inst10_rst,
+    inst10_enable_read => s_inst10_enable_read,
+    inst10_enable_write => s_inst10_enable_write,
+
+    inst15_rst => s_inst15_rst,
+    inst15_enable_read => s_inst15_enable_read,
+    inst15_enable_write => s_inst15_enable_write,
+
     instruction1 => s_instruction1,
     instruction2 => s_instruction2,
     instruction3 => s_instruction3,
@@ -274,10 +299,10 @@ begin
 	begin
     for i in 1 to num_cycles loop
         s_clk <= not s_clk;
-        wait for 5 ns;
+        wait for 0.5 ns;
         s_clk <= not s_clk;
-        wait for 5 ns;
-        -- clock period = 10 ns
+        wait for 0.5 ns;
+        -- clock period = 1 ns
       end loop;
       wait;
 	end process;
@@ -286,10 +311,10 @@ begin
 	begin
 		s_enable_write <= '1';
     s_enable_read <= '0';
-		wait for 40 ns;
+		wait for 10 ns;
     s_enable_write <= '0';
     s_enable_read <= '1';
-    wait for 40 ns;
+    wait for 10 ns;
     s_enable_write <= '1';
     s_enable_read <= '0';
     -- wait for 10 ns;
@@ -341,7 +366,7 @@ begin
     s_write_reg32 <= '1';
     s_write_reg33 <= '1';
     s_write_reg34 <= '1';
-		wait for 40 ns;
+		wait for 10 ns;
 
     s_write_reg1 <= '0';
     s_write_reg2 <= '0';
@@ -377,7 +402,7 @@ begin
     s_write_reg32 <= '0';
     s_write_reg33 <= '0';
     s_write_reg34 <= '0';
-    wait for 40 ns;
+    wait for 10 ns;
 
     s_write_reg1 <= '1';
     s_write_reg2 <= '1';
@@ -413,7 +438,7 @@ begin
     s_write_reg32 <= '1';
     s_write_reg33 <= '1';
     s_write_reg34 <= '1';
-		wait for 40 ns;
+		wait for 10 ns;
 
     s_write_reg1 <= '0';
     s_write_reg2 <= '0';
@@ -489,7 +514,7 @@ begin
     s_read_reg32 <= '0';
     s_read_reg33 <= '0';
     s_read_reg34 <= '0';
-		wait for 40 ns;
+		wait for 10 ns;
 
     s_read_reg1 <= '1';
     s_read_reg2 <= '1';
@@ -525,7 +550,7 @@ begin
     s_read_reg32 <= '1';
     s_read_reg33 <= '1';
     s_read_reg34 <= '1';
-    wait for 40 ns;
+    wait for 10 ns;
 
     s_read_reg1 <= '0';
     s_read_reg2 <= '0';
@@ -561,7 +586,7 @@ begin
     s_read_reg32 <= '0';
     s_read_reg33 <= '0';
     s_read_reg34 <= '0';
-		wait for 40 ns;
+		wait for 10 ns;
 
     s_read_reg1 <= '1';
     s_read_reg2 <= '1';
