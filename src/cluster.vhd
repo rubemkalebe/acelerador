@@ -15,8 +15,7 @@ entity cluster is
   port (
     clk : in std_logic;
 
-    enable_write : in std_logic; -- Enables access to rf for writing
-    enable_read  : in std_logic; -- Enables access to rf for reading
+    sel_input_rf : in std_logic; -- selects if RF input comes from outside or from a FU
 
     input_reg1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
     input_reg2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -797,6 +796,9 @@ begin
     ss_input_reg31, ss_input_reg32, ss_input_reg33, ss_input_reg34
   );
 
+  -- Selection of FU inputs
+  -- The input can come from RF, outside or as a result of a previous FU
+  -- Except for the second input of a load/store, which comes from the instruction (immediate)
   inst1_A <= inst1_aux_rf_A when (instruction1(35) = '1') else
              inst1_aux_A;
 
@@ -1098,82 +1100,41 @@ begin
 
   inst15_B <= inst15_B; -- Takes the immediate
 
-  write_rf : process
-  begin
-    -- First, fill the register file
-    wait until clk'event and clk = '1' and enable_write = '1';
-    s_input_reg1 <= input_reg1;
-    s_input_reg2 <= input_reg2;
-    s_input_reg3 <= input_reg3;
-    s_input_reg4 <= input_reg4;
-    s_input_reg5 <= input_reg5;
-    s_input_reg6 <= input_reg6;
-    s_input_reg7 <= input_reg7;
-    s_input_reg8 <= input_reg8;
-    s_input_reg9 <= input_reg9;
-    s_input_reg10 <= input_reg10;
-    s_input_reg11 <= input_reg11;
-    s_input_reg12 <= input_reg12;
-    s_input_reg13 <= input_reg13;
-    s_input_reg14 <= input_reg14;
-    s_input_reg15 <= input_reg15;
-    s_input_reg16 <= input_reg16;
-    s_input_reg17 <= input_reg17;
-    s_input_reg18 <= input_reg18;
-    s_input_reg19 <= input_reg19;
-    s_input_reg20 <= input_reg20;
-    s_input_reg21 <= input_reg21;
-    s_input_reg22 <= input_reg22;
-    s_input_reg23 <= input_reg23;
-    s_input_reg24 <= input_reg24;
-    s_input_reg25 <= input_reg25;
-    s_input_reg26 <= input_reg26;
-    s_input_reg27 <= input_reg27;
-    s_input_reg28 <= input_reg28;
-    s_input_reg29 <= input_reg29;
-    s_input_reg30 <= input_reg30;
-    s_input_reg31 <= input_reg31;
-    s_input_reg32 <= input_reg32;
-    s_input_reg33 <= input_reg33;
-    s_input_reg34 <= input_reg34;
-
-    -- Update register file when signal raises again
-    wait until (clk'event and clk = '1') and (enable_write'event and enable_write = '1');
-    s_input_reg1 <= ss_input_reg1;
-    s_input_reg2 <= ss_input_reg2;
-    s_input_reg3 <= ss_input_reg3;
-    s_input_reg4 <= ss_input_reg4;
-    s_input_reg5 <= ss_input_reg5;
-    s_input_reg6 <= ss_input_reg6;
-    s_input_reg7 <= ss_input_reg7;
-    s_input_reg8 <= ss_input_reg8;
-    s_input_reg9 <= ss_input_reg9;
-    s_input_reg10 <= ss_input_reg10;
-    s_input_reg11 <= ss_input_reg11;
-    s_input_reg12 <= ss_input_reg12;
-    s_input_reg13 <= ss_input_reg13;
-    s_input_reg14 <= ss_input_reg14;
-    s_input_reg15 <= ss_input_reg15;
-    s_input_reg16 <= ss_input_reg16;
-    s_input_reg17 <= ss_input_reg17;
-    s_input_reg18 <= ss_input_reg18;
-    s_input_reg19 <= ss_input_reg19;
-    s_input_reg20 <= ss_input_reg20;
-    s_input_reg21 <= ss_input_reg21;
-    s_input_reg22 <= ss_input_reg22;
-    s_input_reg23 <= ss_input_reg23;
-    s_input_reg24 <= ss_input_reg24;
-    s_input_reg25 <= ss_input_reg25;
-    s_input_reg26 <= ss_input_reg26;
-    s_input_reg27 <= ss_input_reg27;
-    s_input_reg28 <= ss_input_reg28;
-    s_input_reg29 <= ss_input_reg29;
-    s_input_reg30 <= ss_input_reg30;
-    s_input_reg31 <= ss_input_reg31;
-    s_input_reg32 <= ss_input_reg32;
-    s_input_reg33 <= ss_input_reg33;
-    s_input_reg34 <= ss_input_reg34;
-    wait;
-  end process;
+  -- Writing in the register file
+  -- Input comes from outside or from a FU
+  s_input_reg1 <= input_reg1 when (sel_input_rf = '0') else ss_input_reg1;
+  s_input_reg2 <= input_reg2 when (sel_input_rf = '0') else ss_input_reg2;
+  s_input_reg3 <= input_reg3 when (sel_input_rf = '0') else ss_input_reg3;
+  s_input_reg4 <= input_reg4 when (sel_input_rf = '0') else ss_input_reg4;
+  s_input_reg5 <= input_reg5 when (sel_input_rf = '0') else ss_input_reg5;
+  s_input_reg6 <= input_reg6 when (sel_input_rf = '0') else ss_input_reg6;
+  s_input_reg7 <= input_reg7 when (sel_input_rf = '0') else ss_input_reg7;
+  s_input_reg8 <= input_reg8 when (sel_input_rf = '0') else ss_input_reg8;
+  s_input_reg9 <= input_reg9 when (sel_input_rf = '0') else ss_input_reg9;
+  s_input_reg10 <= input_reg10 when (sel_input_rf = '0') else ss_input_reg10;
+  s_input_reg11 <= input_reg11 when (sel_input_rf = '0') else ss_input_reg11;
+  s_input_reg12 <= input_reg12 when (sel_input_rf = '0') else ss_input_reg12;
+  s_input_reg13 <= input_reg13 when (sel_input_rf = '0') else ss_input_reg13;
+  s_input_reg14 <= input_reg14 when (sel_input_rf = '0') else ss_input_reg14;
+  s_input_reg15 <= input_reg15 when (sel_input_rf = '0') else ss_input_reg15;
+  s_input_reg16 <= input_reg16 when (sel_input_rf = '0') else ss_input_reg16;
+  s_input_reg17 <= input_reg17 when (sel_input_rf = '0') else ss_input_reg17;
+  s_input_reg18 <= input_reg18 when (sel_input_rf = '0') else ss_input_reg18;
+  s_input_reg19 <= input_reg19 when (sel_input_rf = '0') else ss_input_reg19;
+  s_input_reg20 <= input_reg20 when (sel_input_rf = '0') else ss_input_reg20;
+  s_input_reg21 <= input_reg21 when (sel_input_rf = '0') else ss_input_reg21;
+  s_input_reg22 <= input_reg22 when (sel_input_rf = '0') else ss_input_reg22;
+  s_input_reg23 <= input_reg23 when (sel_input_rf = '0') else ss_input_reg23;
+  s_input_reg24 <= input_reg24 when (sel_input_rf = '0') else ss_input_reg24;
+  s_input_reg25 <= input_reg25 when (sel_input_rf = '0') else ss_input_reg25;
+  s_input_reg26 <= input_reg26 when (sel_input_rf = '0') else ss_input_reg26;
+  s_input_reg27 <= input_reg27 when (sel_input_rf = '0') else ss_input_reg27;
+  s_input_reg28 <= input_reg28 when (sel_input_rf = '0') else ss_input_reg28;
+  s_input_reg29 <= input_reg29 when (sel_input_rf = '0') else ss_input_reg29;
+  s_input_reg30 <= input_reg30 when (sel_input_rf = '0') else ss_input_reg30;
+  s_input_reg31 <= input_reg31 when (sel_input_rf = '0') else ss_input_reg31;
+  s_input_reg32 <= input_reg32 when (sel_input_rf = '0') else ss_input_reg32;
+  s_input_reg33 <= input_reg33 when (sel_input_rf = '0') else ss_input_reg33;
+  s_input_reg34 <= input_reg34 when (sel_input_rf = '0') else ss_input_reg34;
 
 end cluster;

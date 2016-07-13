@@ -15,8 +15,8 @@ end cluster_tb;
 architecture cluster_tb of cluster_tb is
 
   signal s_clk : std_logic := '0';
-  signal s_enable_read : std_logic := '0';
-  signal s_enable_write : std_logic := '0';
+
+  signal s_sel_input_rf : std_logic;
 
   signal s_input_reg1 : std_logic_vector(DATA_WIDTH-1 downto 0);
   signal s_input_reg2 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -158,8 +158,8 @@ begin
   cluster_0 : entity work.cluster
   port map (
     clk => s_clk,
-    enable_write => s_enable_write,
-    enable_read => s_enable_read,
+
+    sel_input_rf => s_sel_input_rf,
 
     input_reg1 => s_input_reg1,
     input_reg2 => s_input_reg2,
@@ -307,26 +307,13 @@ begin
       wait;
 	end process;
 
-  write : process
+  select_input_rf : process
 	begin
-		s_enable_write <= '1';
-    s_enable_read <= '0';
-		wait for 10 ns;
-    s_enable_write <= '0';
-    s_enable_read <= '1';
-    wait for 10 ns;
-    s_enable_write <= '1';
-    s_enable_read <= '0';
-    -- wait for 10 ns;
-    -- s_enable_write <= '1';
-    -- s_enable_read <= '0';
-		-- wait for 10 ns;
-    -- s_enable_write <= '0';
-    -- s_enable_read <= '1';
-    -- wait for 10 ns;
-    -- s_enable_write <= '1';
-    -- s_enable_read <= '0';
-		-- wait for 50 ns;
+		s_sel_input_rf <= '0';
+		wait for 20 ns;
+    s_sel_input_rf <= '1';
+    wait for 20 ns;
+    s_sel_input_rf <= '0';
     wait;
 	end process;
 
