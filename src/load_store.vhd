@@ -1,6 +1,6 @@
 -- Performs load and store from/to memory to the register file.
 -- Operations supported: lw, lh, lhu, lb, lbu, sw, sh, sb.
--- Version: 07.10.2016.
+-- Version: 07.14.2016.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -59,7 +59,7 @@ mem_wrdata <= wrdata when (opcode = "0101") else -- sw
 -- calculates memory address
 mem_addr <= std_logic_vector(unsigned(rf_data) + unsigned(offset));
 
-process(clk)
+process(clk, rst)
 begin
 	if(rst = '1') then
     rddata <= (others => '0');
